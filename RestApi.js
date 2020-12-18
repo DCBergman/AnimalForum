@@ -1,4 +1,4 @@
-//const Encrypt = require("./Encrypt");
+const Encrypt = require("./Encrypt");
 const sqlite3 = require("better-sqlite3");
 
 module.exports = class RestApi {
@@ -53,9 +53,9 @@ module.exports = class RestApi {
   createPostRoute(table) {
     this.app.post(this.prefix + table, (req, res) => {
       let rb = req.body;
-      // if (rb.password) {
-      //   rb.password = Encrypt.multiEncrypt(rb.password);
-      // }
+      if (rb.password) {
+        rb.password = Encrypt.multiEncrypt(rb.password);
+      }
       let sql = `INSERT INTO  ${table} 
     (${Object.keys(rb)}) 
     VALUES (${Object.keys(rb).map((x) => "$" + x)})                             
@@ -68,9 +68,9 @@ module.exports = class RestApi {
   createPutRoute(table) {
     this.app.put(this.prefix + table + "/:id", (req, res) => {
       let rb = req.body;
-      // if (rb.password) {
-      //   rb.password = Encrypt.multiEncrypt(rb.password);
-      // }
+      if (rb.password) {
+        rb.password = Encrypt.multiEncrypt(rb.password);
+      }
 
       rb.id = req.params.id;
       let sql = `UPDATE ${table} 
