@@ -2,7 +2,7 @@ const Encrypt = require("./Encrypt");
 const sqlite3 = require("better-sqlite3");
 
 module.exports = class RestApi {
-  constructor(expressApp, urlPrefix = "/api", pathToDb = "./animalforum.db") {
+  constructor(expressApp, urlPrefix = "/api/", pathToDb = "../animalforum.db") {
     this.app = expressApp;
     this.db = sqlite3(pathToDb);
     this.prefix = urlPrefix;
@@ -15,6 +15,7 @@ module.exports = class RestApi {
       this.createDeleteRroute(table);
       this.createPutRoute(table);
     }
+    this.addLoginRoutes();
   }
 
   getAllTables() {
@@ -87,6 +88,36 @@ module.exports = class RestApi {
     DELETE FROM ${table}
     WHERE id = $id`);
       res.json(statement.run(req.params));
+    });
+  }
+
+  addLoginRoutes() {
+    
+    this.app.post(this.prefix + "login", (req, res) => {
+      if (req.body.password) {
+        req.body.password = Encrypt.multiEncrypt(req.body.password);
+      }
+      let statement = this.db.prepare(`
+         SELECT * FROM users
+         WHERE email = $email AND password = $password
+      `);
+      let user = statement.get(req.body) || null;
+      if (user) {
+        delete user.password;
+        req.session.user = user;
+      }
+      res.json(user);
+    });
+
+    // GET - check if logged in and return user if so
+    this.app.get(this.prefix + "login", (req, res) => {
+      res.json(req.session.user || null);
+    });
+
+    // DELETE - logged out a logged in user
+    this.app.delete(this.prefix + "login", (req, res) => {
+      delete req.session.user;
+      res.json({ loggedOut: true });
     });
   }
 };
