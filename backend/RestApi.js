@@ -8,12 +8,13 @@ module.exports = class RestApi {
     this.prefix = urlPrefix;
 
     let tables = this.getAllTables();
+    console.log("tables: ", tables);
     for (let table of tables) {
       this.createGetAllRoute(table);
       this.createPostRoute(table);
       this.createGetRoute(table);
-      this.createDeleteRroute(table);
       this.createPutRoute(table);
+      this.createDeleteRroute(table);
     }
     this.addLoginRoutes();
   }
@@ -109,12 +110,10 @@ module.exports = class RestApi {
       res.json(user);
     });
 
-    // GET - check if logged in and return user if so
     this.app.get(this.prefix + "login", (req, res) => {
       res.json(req.session.user || null);
     });
 
-    // DELETE - logged out a logged in user
     this.app.delete(this.prefix + "login", (req, res) => {
       delete req.session.user;
       res.json({ loggedOut: true });

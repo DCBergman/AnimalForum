@@ -3,7 +3,6 @@ module.exports = function (settings) {
   let { restPrefix } = settings; 
 
   return function (req, res, next) {
-    console.log("req.body: " , req.body);
 
     if (req.url.indexOf(restPrefix) !== 0) {
 
@@ -12,7 +11,7 @@ module.exports = function (settings) {
     }
 
     let tableName = req.url.replace(restPrefix, "").split("/")[0];
-
+    console.log(settings[tableName]);
     
     if (
       typeof settings[tableName] !== "function" ||
