@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ForumContextProvider from './context/ForumContextProvider';
 import ThreadsList from './pages/ThreadsList';
 import Header from './components/Header';
+import RegisterAccount from './components/RegisterAccount';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
             <Switch>
               <Route exact path="/" component={Subforum} />
               <Route exact path="/threads/:subforumId" component={ThreadsList} />
+              <Route exact path="/register" component={RegisterAccount} />
             </Switch>
           </main>
         </ForumContextProvider>

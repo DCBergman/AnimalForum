@@ -1,7 +1,7 @@
 module.exports = {
   restPrefix: "/api/",
   users(user, method, req) {
-    console.log("ACLS", user);
+    console.log(req.body);
     //Allow everyone to create user
     if (method === "POST" && req.body.userRole === "basicUser") {
       return true;

@@ -80,6 +80,29 @@ code {
   margin-top: 5px;
 
 }
+.register-block{
+  display: flex;
+  justify-content: center;
+}
+.form-div{
+  size: 50%;
+  display: inline;
+}
+.reg-section{
+  margin:5px;
+}
+.block-label{
+  margin:0px;
+}
+#email{
+  margin-bottom: 3px;
+}
+#password{
+  margin-bottom: 3px;
+}
+#username{
+  margin-bottom: 3px;
+}
 
 @media (min-width: 1200px){
   .container{
