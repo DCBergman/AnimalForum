@@ -25,12 +25,16 @@ code {
   justify-content: center;
   font-weight: 10px;
 }
+.subforum-card:hover{
+  cursor: pointer;
+}
 .thread-div{
   display: grid;
   height: 60px;
   border-color: black;
   border-style:solid;
   position: relative;
+  margin:5px;
 }
 .thread-bottom-row{
   display: grid;

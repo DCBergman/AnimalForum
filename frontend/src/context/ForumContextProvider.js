@@ -5,6 +5,7 @@ export const ForumContext = createContext();
 const ForumContextProvider = (props) => {
   const [subforums, setSubforums] = useState([]); 
   const [threads, setThreads] = useState([]); 
+  const [currentSubforum, setCurrentSubforum] = useState(null);
 
   const fetchAllSubforums = async () => {
     let subforums = await fetch("localhost:3000/api/subforums");
@@ -17,7 +18,9 @@ const ForumContextProvider = (props) => {
 
   const values = {
     subforums,
-    fetchAllSubforums
+    currentSubforum, 
+    fetchAllSubforums,
+    setCurrentSubforum,
   };
 
   return (

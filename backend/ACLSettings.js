@@ -10,7 +10,7 @@ module.exports = {
       return true;
     }
     //Allow all logged in users to see a list of other users
-    if (method === "GET" && user.userRole) {
+    if (method === "GET") {
       return true;
     }
     //Allow admins to change info about user

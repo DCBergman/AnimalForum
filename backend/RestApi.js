@@ -15,6 +15,7 @@ module.exports = class RestApi {
       this.createGetRoute(table);
       this.createPutRoute(table);
       this.createDeleteRroute(table);
+      this.createGetBySubforumIdRoute(table);
     }
     this.addLoginRoutes();
   }
@@ -35,6 +36,17 @@ module.exports = class RestApi {
 
       let result = statement.all();
       result.forEach((x) => delete x.password);
+      res.json(result);
+    });
+  }
+
+  createGetBySubforumIdRoute(){
+    this.app.get(this.prefix + "subforums/threads/:id", (req, res) => {
+      let statement = this.db.prepare(`
+     SELECT * FROM  threads
+     WHERE subforumId = $id`);
+      let result = statement.all(req.params) || null;
+
       res.json(result);
     });
   }

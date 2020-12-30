@@ -1,7 +1,7 @@
 import Subforum from './components/Subforum';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ForumContextProvider from './context/ForumContextProvider';
-import Thread from './components/Thread';
+import ThreadsList from './pages/ThreadsList';
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
           <main className="container">
             <Switch>
               <Route exact path="/" component={Subforum} />
-              <Route exact path="/threads" component={Thread} />
+              <Route exact path="/threads/:subforumId" component={ThreadsList} />
             </Switch>
           </main>
         </ForumContextProvider>
