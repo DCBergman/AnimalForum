@@ -1,3 +1,11 @@
+*{
+  box-sizing: border-box;
+}
+.container{
+  margin:0 !important;
+  padding:0 !important;
+  max-width: 100%;
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -18,6 +26,17 @@ code {
   height: 500px; 
   display: inline-flexbox;
   justify-content: center;
+}
+.header-div{
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  padding: 1em;
+  margin-bottom: 2em;
+  background-color:black;
+  color: #fff;
 }
 .subforum-card{
   margin: 10px; 
@@ -60,4 +79,25 @@ code {
   font-size: 14px;
   margin-top: 5px;
 
+}
+
+@media (min-width: 1200px){
+  .container{
+  max-width: 100% !important;
+  }
+}
+@media (min-width: 992px){
+   .container{
+  max-width: 100% !important;
+  }
+}
+@media (min-width: 768px){
+   .container{
+  max-width: 100% !important;
+  }
+}
+@media (min-width: 567px){
+   .container{
+  max-width: 100% !important;
+  }
 }
