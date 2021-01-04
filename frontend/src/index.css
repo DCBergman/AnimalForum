@@ -1,0 +1,152 @@
+*{
+  box-sizing: border-box;
+}
+.container{
+  margin:0 !important;
+  padding:0 !important;
+  max-width: 100%;
+}
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+.App{
+  height: 500px;
+}
+.sf-div{
+  height: 500px; 
+  display: inline-flexbox;
+  justify-content: center;
+}
+.header-div{
+  box-sizing: border-box;
+  width: 100%;
+  display: grid;
+   justify-content: center; 
+  align-items: baseline;
+  padding: 1em;
+  margin-bottom: 2em;
+  background-color:black;
+  color: #fff;
+}
+.header-div:hover{
+  cursor: pointer;
+}
+.header-title{
+ font-size: 20px;
+ font-weight: 800;
+width: 500px;
+text-align: center;
+}
+.header-right-aligned{
+  position:absolute;
+  right: 10px;
+  width: 14%;
+}
+.header-p{
+  width: 60px;
+  float: left;
+}
+.header-p:hover{
+  cursor: pointer;
+}
+.subforum-card{
+  margin: 10px; 
+  height: 60px;
+  justify-content: center;
+  font-weight: 10px;
+}
+.subforum-card:hover{
+  cursor: pointer;
+}
+.thread-div{
+  display: grid;
+  height: 60px;
+  border-color: black;
+  border-style:solid;
+  position: relative;
+  margin:5px;
+}
+.thread-bottom-row{
+  display: grid;
+}
+.thread-title{
+  margin-left:10px;
+  margin-bottom: 0px;;
+  font-weight: 700;
+  margin-top: 5px;
+}
+.thread-date{
+  grid-column: 1;
+  margin-left:10px;
+  margin-bottom: 0px; 
+  font-size: 14px;
+  margin-top: 5px;
+}
+.thread-creator{
+  grid-column: 2;
+  text-align: end;
+  margin-right:10px;
+  margin-bottom: 0px;
+  font-size: 14px;
+  margin-top: 5px;
+
+}
+.form-block{
+  display: flex;
+  justify-content: center;
+}
+.form-div{
+  size: 50%;
+  display: inline;
+}
+.form-section{
+  margin:5px;
+}
+.block-label{
+  margin:0px;
+}
+#email{
+  margin-bottom: 3px;
+}
+#password{
+  margin-bottom: 3px;
+}
+#username{
+  margin-bottom: 3px;
+}
+.btn-div{
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+@media (min-width: 1200px){
+  .container{
+  max-width: 100% !important;
+  }
+}
+@media (min-width: 992px){
+   .container{
+  max-width: 100% !important;
+  }
+}
+@media (min-width: 768px){
+   .container{
+  max-width: 100% !important;
+  }
+}
+@media (min-width: 567px){
+   .container{
+  max-width: 100% !important;
+  }
+}
