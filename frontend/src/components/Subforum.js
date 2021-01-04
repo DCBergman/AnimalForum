@@ -14,7 +14,10 @@ const Subforum = (props) => {
   }, []);
 
   const fetchAllSubforums = async () => {
-    let allSubforums = await fetch("http://localhost:3000/api/subforums");
+    let allSubforums = await fetch("/api/subforums", {
+      method: 'GET',
+      credentials: 'include'
+    });
     console.log(allSubforums);
     setSubforums(await allSubforums.json());
   };

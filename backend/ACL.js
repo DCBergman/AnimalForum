@@ -3,6 +3,7 @@ module.exports = function (settings) {
   let { restPrefix } = settings; 
 
   return function (req, res, next) {
+    console.log(restPrefix, " ", settings);
 
     if (req.url.indexOf(restPrefix) !== 0) {
 

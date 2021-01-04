@@ -30,13 +30,34 @@ code {
 .header-div{
   box-sizing: border-box;
   width: 100%;
-  display: flex;
-  justify-content: center;
+  display: grid;
+   justify-content: center; 
   align-items: baseline;
   padding: 1em;
   margin-bottom: 2em;
   background-color:black;
   color: #fff;
+}
+.header-div:hover{
+  cursor: pointer;
+}
+.header-title{
+ font-size: 20px;
+ font-weight: 800;
+width: 500px;
+text-align: center;
+}
+.header-right-aligned{
+  position:absolute;
+  right: 10px;
+  width: 14%;
+}
+.header-p{
+  width: 60px;
+  float: left;
+}
+.header-p:hover{
+  cursor: pointer;
 }
 .subforum-card{
   margin: 10px; 
@@ -80,7 +101,7 @@ code {
   margin-top: 5px;
 
 }
-.register-block{
+.form-block{
   display: flex;
   justify-content: center;
 }
@@ -88,7 +109,7 @@ code {
   size: 50%;
   display: inline;
 }
-.reg-section{
+.form-section{
   margin:5px;
 }
 .block-label{
@@ -102,6 +123,11 @@ code {
 }
 #username{
   margin-bottom: 3px;
+}
+.btn-div{
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 @media (min-width: 1200px){

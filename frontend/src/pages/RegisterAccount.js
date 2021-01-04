@@ -41,11 +41,11 @@ const RegisterAccount = (props) => {
   }
 
   return (
-    <div className="register-block">
+    <div className="form-block">
       <form>
         <h1>Register</h1>
-        <section className="reg-section">
-          <label for="email" className="block-label">
+        <section className="form-section">
+          <label className="block-label">
             Email
           </label>
           <br />
@@ -60,8 +60,8 @@ const RegisterAccount = (props) => {
           />
         </section>
 
-        <section className="reg-section">
-          <label for="username" className="block-label">
+        <section className="form-section">
+          <label className="block-label">
             Username
           </label>
           <br />
@@ -70,12 +70,12 @@ const RegisterAccount = (props) => {
             name="username"
             required
             className="inputFit"
-             onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => setUsername(e.target.value)}
           />
         </section>
 
-        <section className="reg-section">
-          <label for="password" className="block-label" type="password">
+        <section className="form-section">
+          <label className="block-label" type="password">
             Password
           </label>
           <br />
@@ -87,13 +87,10 @@ const RegisterAccount = (props) => {
             required
             onChange={(e) => setPassword(e.target.value)}
           />
-          <div id="password-constraints" className="password-constraints-font">
-            8+ Characters with a mix of letters, numbers and symbols
-          </div>
         </section>
 
-        <section className="reg-section">
-          <label for="confirmPassword" className="block-label">
+        <section className="form-section">
+          <label className="block-label">
             Confirm password
           </label>
           <br />
@@ -106,8 +103,11 @@ const RegisterAccount = (props) => {
             onChange={(e) => setPassword2(e.target.value)}
           />
         </section>
-
-        <button onClick={createAccount}>Create account</button>
+        <div className="btn-div">
+          <button classname="form-button" onClick={createAccount}>
+            Create account
+          </button>
+        </div>
       </form>
     </div>
   );

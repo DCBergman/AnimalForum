@@ -13,8 +13,12 @@ const ThreadsList = (props) => {
 
   const fetchAllThreadsFromSubforum = async () => {
         let threads = await fetch(
-          "http://localhost:3000/api/subforums/threads/" +
-            props.match.params.subforumId
+          "/api/subforums/threads/" +
+            props.match.params.subforumId,
+          {
+            method: "GET",
+            credentials: "include",
+          }
         );
         console.log("context ", threads);
         threads = await threads.json();

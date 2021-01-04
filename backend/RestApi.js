@@ -123,7 +123,7 @@ module.exports = class RestApi {
     });
 
     this.app.get(this.prefix + "login", (req, res) => {
-      res.json(req.session.user || null);
+      res.json(req.session.user|| null);
     });
 
     this.app.delete(this.prefix + "login", (req, res) => {

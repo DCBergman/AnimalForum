@@ -12,7 +12,10 @@ const Thread = (props) => {
   },[])
 
   const getCreator = async() =>{
-        let fetchedCreator = await fetch("http://localhost:3000/api/users/" + props.thread.creator);
+        let fetchedCreator = await fetch("/api/users/" + props.thread.creator,{
+          method: 'GET',
+          credentials: 'include'
+        });
         console.log(fetchedCreator.username);
         setCreator(await fetchedCreator.json());
   }

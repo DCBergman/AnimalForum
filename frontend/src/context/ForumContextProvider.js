@@ -1,24 +1,26 @@
 import React, { createContext, useState } from "react";
 export const ForumContext = createContext();
 
-
 const ForumContextProvider = (props) => {
-  const [subforums, setSubforums] = useState([]); 
-  const [threads, setThreads] = useState([]); 
+  const [subforums, setSubforums] = useState([]);
+  const [threads, setThreads] = useState([]);
   const [currentSubforum, setCurrentSubforum] = useState(null);
 
   const fetchAllSubforums = async () => {
-    let subforums = await fetch("localhost:3000/api/subforums");
+    let subforums = await fetch("/api/subforums", {
+      method: "GET",
+      credentials: "include",
+    });
     console.log("context ", subforums);
-    subforums = await subforums.json(); 
+    subforums = await subforums.json();
 
     console.log("context ", subforums);
-    setSubforums(subforums)
+    setSubforums(subforums);
   };
 
   const values = {
     subforums,
-    currentSubforum, 
+    currentSubforum,
     fetchAllSubforums,
     setCurrentSubforum,
   };
@@ -28,9 +30,6 @@ const ForumContextProvider = (props) => {
       {props.children}
     </ForumContext.Provider>
   );
-
-
-
 };
 
 export default ForumContextProvider;

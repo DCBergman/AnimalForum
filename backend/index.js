@@ -9,7 +9,18 @@ const ACLsettings = require("./ACLsettings");
 
 app.use(express.json());
 
-app.use(cors());
+//app.use(cors());
+
+app.use((error, req, res, next) => {
+  console.log("ERROR", error);
+  if (error) {
+    res.status(500);
+    res.json({
+      error: "Something went wrong - probably badly formatted JSON",
+      errorDetails: error,
+    });
+  }
+});
 
 app.use(
   session({
