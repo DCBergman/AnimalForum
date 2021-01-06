@@ -16,6 +16,7 @@ module.exports = class RestApi {
       this.createPutRoute(table);
       this.createDeleteRroute(table);
       this.createGetBySubforumIdRoute(table);
+      this.createGetByThreadIdRoute(table);
     }
     this.addLoginRoutes();
   }
@@ -40,11 +41,22 @@ module.exports = class RestApi {
     });
   }
 
-  createGetBySubforumIdRoute(){
+  createGetBySubforumIdRoute() {
     this.app.get(this.prefix + "subforums/threads/:id", (req, res) => {
       let statement = this.db.prepare(`
      SELECT * FROM  threads
      WHERE subforumId = $id`);
+      let result = statement.all(req.params) || null;
+
+      res.json(result);
+    });
+  }
+
+  createGetByThreadIdRoute() {
+    this.app.get(this.prefix + "posts/:threadId", (req, res) => {
+      let statement = this.db.prepare(`
+     SELECT * FROM  posts
+     WHERE threadId = $threadId`);
       let result = statement.all(req.params) || null;
 
       res.json(result);
@@ -105,7 +117,6 @@ module.exports = class RestApi {
   }
 
   addLoginRoutes() {
-    
     this.app.post(this.prefix + "login", (req, res) => {
       if (req.body.password) {
         req.body.password = Encrypt.multiEncrypt(req.body.password);
@@ -123,7 +134,7 @@ module.exports = class RestApi {
     });
 
     this.app.get(this.prefix + "login", (req, res) => {
-      res.json(req.session.user|| null);
+      res.json(req.session.user || null);
     });
 
     this.app.delete(this.prefix + "login", (req, res) => {

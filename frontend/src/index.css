@@ -129,7 +129,52 @@ text-align: center;
   display: flex;
   justify-content: center;
 }
-
+.thread-page-div{
+  margin:40px;
+}
+.post-div{
+  display: grid;
+  height: auto;
+  border-color: black;
+  border-style:solid;
+  position: relative;
+}
+.post-top-row{
+  display: grid;
+  height:20px; 
+  margin-bottom: 5px;
+}
+.post-creator{
+  width: 50%;
+  grid-column: 1;
+  margin-left:5px;
+  margin-bottom: 0;
+  font-weight: 700;
+  text-decoration: underline;
+}
+.post-date{
+  width: 50%;
+  grid-column: 2;
+  margin:0;
+}
+.post-text{
+  margin-left:5px; 
+  margin-bottom: 0;
+}
+.post-form{
+  height:80px;
+  margin: 30px; 
+}
+.post-input{
+  width: 100%;
+  height: 70%;
+  margin-bottom: 7px; 
+  margin-left: 0;
+  height:auto;
+  border-color: black;
+  border-width: 3px;
+  padding:0;
+}
 @media (min-width: 1200px){
   .container{
   max-width: 100% !important;

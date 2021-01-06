@@ -33,7 +33,26 @@ module.exports = {
     if (method === "POST" && user.userRole === "basicUser") {
       return true;
     }
-    if (method === "GET" && user.userRole) {
+    if (method === "GET") {
+      return true;
+    }
+    if (method === "PUT" && user.userRole === "admin") {
+      return true;
+    }
+    if (method === "PUT" && req.url.split("/").pop() === user.id) {
+      return true;
+    }
+    if (method === "DELETE" && user.userRole === "admin") {
+      return true;
+    }
+
+    return false;
+  },
+  posts(user, method, req) {
+    if (method === "POST" && user.userRole) {
+      return true;
+    }
+    if (method === "GET") {
       return true;
     }
     if (method === "PUT" && user.userRole === "admin") {

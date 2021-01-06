@@ -1,25 +1,32 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { ForumContext } from "../context/ForumContextProvider";
 import "../index.css";
 
 const Header = (props) => {
+  const forumContext = useContext(ForumContext);
   const [loggedIn, setLoggedIn] = useState(false);
   const history = useHistory();
 
   useEffect(async() => {
-  let response = await fetch("/api/login", {
-    method: "GET",
-    headers: { "Content-Type": "application/json" }
-  });
-   console.log(response);
-   try {
-     response = await response.json();
-     setLoggedIn(true);
-     console.log(response);
-   } catch {
-     console.log("Bad credentials");
-   }
-  },[])
+  // let response = await fetch("/api/login", {
+  //   method: "GET",
+  //   headers: { "Content-Type": "application/json" }
+  // });
+  //  console.log(response);
+  //  try {
+  //    response = await response.json();
+  //    if(response!==null){
+  //      setLoggedIn(true);
+  //    }else{
+  //      setLoggedIn(false);
+  //    }
+  //    console.log(response);
+  //  } catch {
+  //    console.log("Bad credentials");
+  //  }
+  setLoggedIn(forumContext.isLoggedIn);
+  },[forumContext.isLoggedIn])
 
   // const isLoggedIn = async () => {
   //    let response = await fetch("localhost:3000/api/login");
@@ -35,6 +42,7 @@ const Header = (props) => {
             credentials: "include",
           }
         );
+        forumContext.setIsLoggedIn(false);
         setLoggedIn(false);
         history.push("/");
   } 

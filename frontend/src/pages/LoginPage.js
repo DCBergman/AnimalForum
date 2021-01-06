@@ -1,32 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
+import { ForumContext } from "../context/ForumContextProvider";
 import "../index.css";
 
 const LoginPage = (props) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const forumContext = useContext(ForumContext);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const history = useHistory();
 
-  async function attemptLogin(e){
+  async function attemptLogin(e) {
     e.preventDefault();
-     const credentials = {
-       email,
-       password
-     };
+    const credentials = {
+      email,
+      password,
+    };
 
-     let response = await fetch("/api/login", {
-       method: "POST",
-       headers: { "Content-Type": "application/json" },
-       body: JSON.stringify(credentials),
-     });
-     console.log(response);
-     try {
-       response = await response.json();
-       console.log(response);
-       history.push("/");
-     } catch {
-       console.log("Bad credentials");
-     }
+    let response = await fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(credentials),
+    });
+    console.log(response);
+    try {
+      response = await response.json();
+      console.log(response);
+      if(response!==null){
+        forumContext.setIsLoggedIn(true);
+        history.push("/");
+      }else{
+        console.log("add alert for wrong user info");
+      }
+    } catch {
+      console.log("Bad credentials");
+    }
   }
 
   return (
@@ -72,4 +79,4 @@ const LoginPage = (props) => {
     </div>
   );
 };
-export default LoginPage; 
+export default LoginPage;
