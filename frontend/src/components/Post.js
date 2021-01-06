@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Card } from "reactstrap";
+import { Card, ListGroupItem } from "reactstrap";
 import { ForumContext } from "../context/ForumContextProvider";
 import "../index.css";
 
@@ -34,13 +34,13 @@ const Post = (props) => {
 
 
   return (
-    <div className="post-div">
+    <ListGroupItem className="post-div">
       <div className="post-top-row">
         <p className="post-creator">{user.username}</p>
         <p className="post-date">{date}</p>
       </div>
       <p className="post-text">{props.post.content}</p>
-    </div>
+    </ListGroupItem>
   );
 };
 export default Post;

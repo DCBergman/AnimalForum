@@ -65,7 +65,7 @@ const ThreadPage = (props) => {
     <div className="thread-page-div">
       {forumContext.posts.map((p, i) => (
         <Post post={p} key={i} />
-      ))};
+      ))}
 
       <div className="post-form">
         <Col sm={7}>

@@ -104,24 +104,25 @@ text-align: center;
 .form-block{
   display: flex;
   justify-content: center;
-}
-.form-div{
-  size: 50%;
-  display: inline;
+  text-align: center;
 }
 .form-section{
   margin:5px;
+  widows: 190px;
+  display: block;
+
 }
 .block-label{
   margin:0px;
 }
-#email{
+.email{
+  margin-bottom: 3px;
+  display: block;
+}
+.password{
   margin-bottom: 3px;
 }
-#password{
-  margin-bottom: 3px;
-}
-#username{
+.username{
   margin-bottom: 3px;
 }
 .btn-div{
@@ -147,7 +148,6 @@ text-align: center;
 .post-creator{
   width: 50%;
   grid-column: 1;
-  margin-left:5px;
   margin-bottom: 0;
   font-weight: 700;
   text-decoration: underline;
@@ -157,8 +157,7 @@ text-align: center;
   grid-column: 2;
   margin:0;
 }
-.post-text{
-  margin-left:5px; 
+.post-text{ 
   margin-bottom: 0;
 }
 .post-form{
