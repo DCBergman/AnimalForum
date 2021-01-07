@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Card, ListGroupItem } from "reactstrap";
+import { Button, Card, ListGroupItem, Row } from "reactstrap";
 import { ForumContext } from "../context/ForumContextProvider";
 import "../index.css";
 
@@ -10,7 +10,7 @@ const Post = (props) => {
 
 
   useEffect(() => {
-    setDate(new Date(props.post.date).toISOString().substring(0, 10));
+   setDate(new Date(props.post.date).toISOString().substring(0, 10));
    fetchData();
     
   }, []);
@@ -30,16 +30,20 @@ const Post = (props) => {
        console.log("Bad credentials");
      }
 
+
   }
 
 
   return (
-    <ListGroupItem className="post-div">
+    <ListGroupItem className={props.post.type}>
       <div className="post-top-row">
         <p className="post-creator">{user.username}</p>
         <p className="post-date">{date}</p>
       </div>
-      <p className="post-text">{props.post.content}</p>
+      <div className="post-bottom-row">
+        <p className="post-text">{props.post.content}</p>
+        <Button className="post-delete-btn">Delete</Button>
+      </div>
     </ListGroupItem>
   );
 };

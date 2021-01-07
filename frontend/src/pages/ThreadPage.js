@@ -2,12 +2,14 @@ import React, { useContext, useEffect, useState } from "react";
 import { ForumContext } from "../context/ForumContextProvider";
 import Post from "../components/Post";
 import "../index.css";
-import { Button, Col, Input, Label } from "reactstrap";
+import { Button, Col, Input, Label, Row } from "reactstrap";
 
 const ThreadPage = (props) => {
   const forumContext = useContext(ForumContext);
   const [user, setUser] = useState([]);
   const [content, setContent] = useState("");
+  const [allowed, setAllowed] = useState("");
+  const [warning, setWarning] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -21,14 +23,14 @@ const ThreadPage = (props) => {
   async function createPost(e) {
     e.preventDefault();
 
-    // console.log(user.id);
-    // setUserId(user.id);
-    // setType("normal");
-    // setThreadId(props.match.params.threadId);
-    // setDate(Date.now());
+    let type="";
+    if(warning){
+      type="warning";
+    }else{
+      type="normal";
+    }
 
     let userId = user.id;
-    let type = "normal";
     let threadId = props.match.params.threadId;
     let date = Date.now();
 
@@ -67,20 +69,37 @@ const ThreadPage = (props) => {
         <Post post={p} key={i} />
       ))}
 
-      <div className="post-form">
-        <Col sm={7}>
-          <Input
-            type="textarea"
-            onChange={(e) => setContent(e.target.value)}
-            className="post-input"
-          />
-        </Col>
-        <Col sm={{ size: 10 }}>
-          <Button className="post-button" onClick={createPost}>
-            Submit
-          </Button>
-        </Col>
-      </div>
+      {user ? (
+        <div className="post-form">
+          <Row>
+            <Col sm={7}>
+              <Input
+                type="textarea"
+                onChange={(e) => setContent(e.target.value)}
+                className="post-input"
+              />
+            </Col>
+            <Col className="checkbox-col" sm={{ size: "auto", offset: 7 }}>
+              {(user.userRole === "moderator" || "admin") && (
+                <Label check>
+                  <Input
+                    type="checkbox"
+                    onChange={() => setWarning(!warning)}
+                  />{" "}
+                  Check to create warning post
+                </Label>
+              )}
+            </Col>
+          </Row>
+          <Col sm={{ size: 10 }}>
+            <Button className="post-button" onClick={createPost}>
+              Submit
+            </Button>
+          </Col>
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

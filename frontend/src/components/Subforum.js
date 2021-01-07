@@ -24,6 +24,7 @@ const Subforum = (props) => {
 
   function redirect (id) {
     console.log(id);
+    
     history.push('/threads/' + id);
 
   }

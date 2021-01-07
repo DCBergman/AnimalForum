@@ -23,7 +23,6 @@ const ForumContextProvider = (props) => {
         method: "GET",
         headers: { "Content-Type": "application/json" }
       });
-      console.log(response);
       try {
         response = await response.json();
         console.log(response);
@@ -31,7 +30,7 @@ const ForumContextProvider = (props) => {
           return response;
         } else {
           console.log("add alert for wrong user info");
-          return "you must log in"; 
+          return null; 
         }
       } catch {
         console.log("Bad credentials");

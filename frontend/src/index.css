@@ -38,23 +38,25 @@ code {
   background-color:black;
   color: #fff;
 }
-.header-div:hover{
+.header-title:hover{
   cursor: pointer;
 }
 .header-title{
  font-size: 20px;
  font-weight: 800;
-width: 500px;
+width: auto;
 text-align: center;
 }
 .header-right-aligned{
   position:absolute;
   right: 10px;
-  width: 14%;
+  width: auto;
 }
 .header-p{
-  width: 60px;
-  float: left;
+  width: auto;
+  margin-right: 10px;
+  margin-left: 10px;
+  float: right;
 }
 .header-p:hover{
   cursor: pointer;
@@ -75,6 +77,9 @@ text-align: center;
   border-style:solid;
   position: relative;
   margin:5px;
+}
+.thread-div{
+  cursor: pointer;
 }
 .thread-bottom-row{
   display: grid;
@@ -133,32 +138,45 @@ text-align: center;
 .thread-page-div{
   margin:40px;
 }
-.post-div{
+.normal{
   display: grid;
   height: auto;
-  border-color: black;
-  border-style:solid;
-  position: relative;
+}
+.warning{
+  background-color: rgba(248, 1, 1, 0.514) !important;
 }
 .post-top-row{
   display: grid;
-  height:20px; 
+  height:auto; 
   margin-bottom: 5px;
 }
+.post-bottom-row{
+  display: inline-grid;
+  height:auto; 
+  grid-template-columns: 945px 100px;
+}
 .post-creator{
-  width: 50%;
+  width: auto;
   grid-column: 1;
   margin-bottom: 0;
   font-weight: 700;
   text-decoration: underline;
 }
 .post-date{
-  width: 50%;
+  width: auto;
   grid-column: 2;
   margin:0;
+  float:right;
+  text-align: right;
 }
 .post-text{ 
   margin-bottom: 0;
+  margin-right: 0;
+  width:70%;
+}
+.post-delete-btn{
+  width: 90px;
+  align-self:flex-end;
 }
 .post-form{
   height:80px;
@@ -173,6 +191,9 @@ text-align: center;
   border-color: black;
   border-width: 3px;
   padding:0;
+}
+.checkbox-col{
+  margin:0 !important;
 }
 @media (min-width: 1200px){
   .container{

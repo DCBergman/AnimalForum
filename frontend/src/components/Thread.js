@@ -1,15 +1,18 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Card  } from "reactstrap";
 import { ForumContext } from "../context/ForumContextProvider";
 import "../index.css";
 
 const Thread = (props) => {
+  const histry = useHistory();
   const [creator, setCreator] = useState([]);
 
   useEffect(()=>{
     getCreator();
-    console.log(props.thread);
+    console.log(props);
   },[])
+
 
   const getCreator = async() =>{
         let fetchedCreator = await fetch("/api/users/" + props.thread.creator,{

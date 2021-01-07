@@ -1,31 +1,19 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Switch, useHistory } from "react-router-dom";
 import { ForumContext } from "../context/ForumContextProvider";
 import "../index.css";
 
 const Header = (props) => {
   const forumContext = useContext(ForumContext);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [role, setRole] = useState("");
   const history = useHistory();
 
-  useEffect(async() => {
-  // let response = await fetch("/api/login", {
-  //   method: "GET",
-  //   headers: { "Content-Type": "application/json" }
-  // });
-  //  console.log(response);
-  //  try {
-  //    response = await response.json();
-  //    if(response!==null){
-  //      setLoggedIn(true);
-  //    }else{
-  //      setLoggedIn(false);
-  //    }
-  //    console.log(response);
-  //  } catch {
-  //    console.log("Bad credentials");
-  //  }
+  useEffect(() => {
+  
   setLoggedIn(forumContext.isLoggedIn);
+  getUserRole();
+   
   },[forumContext.isLoggedIn])
 
   // const isLoggedIn = async () => {
@@ -34,6 +22,15 @@ const Header = (props) => {
   //   response = await response.json();
   //   console.log("login ", response);
   // }
+  const getUserRole = async () => {
+    let user = await forumContext.fetchLoggedInUser()
+    console.log("www ", user)
+    if(user !== null){
+      setRole(user.userRole);
+    }else{
+      setLoggedIn(false);
+    }
+  }
   const logout = async () => {
     await fetch(
           "/api/login", 
@@ -56,25 +53,51 @@ const Header = (props) => {
     history.push("/register");
   } 
 
+  function SwitchCase(props){
+    switch(props.role){
+      case "basicUser":
+        return "";
+      case "admin":
+         console.log("admin");
+        return (
+          <section className="header-p" >
+            Admin
+          </section>
+        );
+      case "moderator":
+        return (
+          <section className="header-p" >
+            My Forums
+          </section>
+        );
+        default:
+          console.log("default");
+          return"";
+    
+    }
+
+  }
   return (
     <div className="header-div">
       <section className="header-title" onClick={routeToHomepage}>
         Animal Forum
       </section>
-      <div className="header-right-aligned">
-        {loggedIn ? (
-          <section className="header-p" onClick={logout}>
-            Logout   
-          </section>
-        ) : (
+      {loggedIn ? (
+        <div className="header-right-aligned">
+          <SwitchCase role={role} />
+          <section className="header-p" onClick={logout}>Logout</section>
+        </div>
+      ) : (
+        <div className="header-right-aligned">
           <section className="header-p" onClick={routeToLogin}>
             Login
           </section>
-        )}
-        <section className="header-p" onClick={routeToRegister}>
-          Register
-        </section>
-      </div>
+
+          <section className="header-p" onClick={routeToRegister}>
+            Register
+          </section>
+        </div>
+      )}
     </div>
   );
 };
