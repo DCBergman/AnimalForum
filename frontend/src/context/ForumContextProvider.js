@@ -4,7 +4,7 @@ export const ForumContext = createContext();
 const ForumContextProvider = (props) => {
   const [subforums, setSubforums] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState([]);
-  const [threads, setThreads] = useState([]);
+  const [thread, setThread] = useState("");
   const [posts, setPosts] = useState([]);
   const [currentSubforum, setCurrentSubforum] = useState(null);
 
@@ -25,7 +25,6 @@ const ForumContextProvider = (props) => {
       });
       try {
         response = await response.json();
-        console.log(response);
         if (response !== null) {
           return response;
         } else {
@@ -44,10 +43,36 @@ const ForumContextProvider = (props) => {
       credentials: "include",
     });
     posts = await posts.json();
-
-    console.log("posts ", posts);
     setPosts(posts);
   }
+
+    const fetchThreadById = async (id) => {
+      let response = await fetch("/api/threads/" + id, {
+        method: "GET",
+        credentials: "include",
+      });
+      response = await response.json();
+
+
+      setThread(response);
+    };
+    const changeThreadStatus = async (id, isOpen) => {
+      console.log(JSON.stringify({isOpen: isOpen}));
+
+        let response = await fetch("/api/threads/" + id, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ isOpen: isOpen }),
+        });
+        try {
+          localStorage.setItem('thread-status', isOpen)
+          response = await response.json();
+          console.log(response);
+           //setThread(response);
+        } catch {
+          console.log("Bad credentials");
+        }
+    };
 
 
   const values = {
@@ -55,11 +80,14 @@ const ForumContextProvider = (props) => {
     currentSubforum,
     isLoggedIn,
     posts,
+    thread,
     fetchAllSubforums,
     setCurrentSubforum,
     fetchPostsByThreadId,
     fetchLoggedInUser,
     setIsLoggedIn,
+    fetchThreadById,
+    changeThreadStatus
   };
 
   return (

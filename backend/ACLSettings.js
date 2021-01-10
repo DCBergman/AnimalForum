@@ -39,7 +39,7 @@ module.exports = {
     if (method === "PUT" && user.userRole === "admin") {
       return true;
     }
-    if (method === "PUT" && req.url.split("/").pop() === user.id) {
+    if (method === "PUT" && user.userRole === "admin" || "moderator") {
       return true;
     }
     if (method === "DELETE" && user.userRole === "admin") {

@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Card } from "reactstrap";
 import Thread from "../components/Thread";
 import { ForumContext } from "../context/ForumContextProvider";
 import "../index.css";
 
 const ThreadsList = (props) => {
+  const forumContext = useContext(ForumContext);
   const history = useHistory();
   const [threads, setThreads] = useState([]);
 
@@ -13,9 +13,15 @@ const ThreadsList = (props) => {
     fetchAllThreadsFromSubforum();
   }, []);
 
-  function goToPage(id) {
+  async function goToPage(t) {
+    await forumContext.fetchThreadById(t.id);
     console.log("clicked");
-    history.push("/threads/" + props.match.params.subforumId + "/" + id);
+    history.push({
+      pathname: "/threads/" + props.match.params.subforumId + "/" + t.id,
+      state:{
+        thread:t,
+      },
+    });
   }
 
   const fetchAllThreadsFromSubforum = async () => {
@@ -40,7 +46,7 @@ const ThreadsList = (props) => {
   return (
     <div className="threads-list">
       {threads.map((t, i) => (
-        <div key={i} onClick={() => goToPage(t.id)}>
+        <div key={i} onClick={() => goToPage(t)}>
           <Thread
             thread={t}
           />

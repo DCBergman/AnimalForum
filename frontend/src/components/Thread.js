@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
-import { Card  } from "reactstrap";
-import { ForumContext } from "../context/ForumContextProvider";
 import "../index.css";
 
 const Thread = (props) => {
-  const histry = useHistory();
   const [creator, setCreator] = useState([]);
 
   useEffect(()=>{
@@ -19,7 +15,6 @@ const Thread = (props) => {
           method: 'GET',
           credentials: 'include'
         });
-        console.log(fetchedCreator.username);
         setCreator(await fetchedCreator.json());
   }
 

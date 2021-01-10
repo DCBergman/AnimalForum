@@ -23,8 +23,7 @@ const Header = (props) => {
   //   console.log("login ", response);
   // }
   const getUserRole = async () => {
-    let user = await forumContext.fetchLoggedInUser()
-    console.log("www ", user)
+    let user = await forumContext.fetchLoggedInUser();
     if(user !== null){
       setRole(user.userRole);
     }else{
@@ -58,7 +57,6 @@ const Header = (props) => {
       case "basicUser":
         return "";
       case "admin":
-         console.log("admin");
         return (
           <section className="header-p" >
             Admin
@@ -71,7 +69,6 @@ const Header = (props) => {
           </section>
         );
         default:
-          console.log("default");
           return"";
     
     }
