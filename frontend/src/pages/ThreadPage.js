@@ -12,13 +12,15 @@ const ThreadPage = (props) => {
   const [isOpen, setIsOpen] = useState("");
   const [thread, setThread] = useState([]);
   const [warning, setWarning] = useState(false);
+  const [postEnabled, setPostEnabled] = useState("");
+  const [isModAdmin, setIsModAdmin] = useState(false);
 
   useEffect(() => {
     console.log(forumContext.thread.isOpen);
     if (forumContext.thread.isOpen !== undefined) {
       localStorage.setItem("thread-status", forumContext.thread.isOpen);
     }
-    if (localStorage.getItem("thread-status", forumContext.thread.isOpen)!== undefined){
+    if (localStorage.getItem("thread-status")!== undefined){
       setIsOpen(
         localStorage.getItem("thread-status", forumContext.thread.isOpen)
       );
@@ -35,9 +37,21 @@ const ThreadPage = (props) => {
   useEffect(() => {
     setIsOpen(forumContext.thread.isOpen);
   }, [forumContext.thread]);
+  
   useEffect(() => {
-    console.log(thread);
-  }, [thread]);
+   if(user){
+     if(user.userRole ==="basicUser" && isOpen){
+       setPostEnabled(true);
+     }else if (user.userRole === "admin"|| "moderator"){
+       setPostEnabled(true);
+       setIsModAdmin(true);
+     }else{
+       setPostEnabled(false);
+     }
+   }else{
+     setPostEnabled(false);
+   }
+  }, [user]);
 
   async function updateStatus() {
     let status = localStorage.getItem("thread-status");
@@ -106,9 +120,8 @@ const ThreadPage = (props) => {
         <Post post={p} key={i} />
       ))}
 
-      {(user.userRole === "basicUser" && isOpen) ||
-      user.userRole === "admin" ||
-      "moderator" ? (
+      {postEnabled
+      ? (
         <div className="post-form">
           <Row>
             <Col sm={{ size: 7, offset: 0 }}>
@@ -120,7 +133,7 @@ const ThreadPage = (props) => {
               />
             </Col>
             <Col className="checkbox-col" sm={{ size: "auto" }}>
-              {(user.userRole === "moderator" || "admin") && (
+              {(isModAdmin) && (
                 <div>
                   <Row>
                     <Label check>
