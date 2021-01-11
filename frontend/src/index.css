@@ -226,6 +226,23 @@ code {
   width: 50px;
   text-align:center;
 }
+.danger-badge{
+  display: flex;
+  background-color: rgb(245, 66, 66);
+  width: auto;
+  height: 30px;
+  justify-content: center;
+  font-size: 100% !important;
+}
+.delete-radio-btn{
+  display: inline-block;
+  height:20px;
+  margin-top: 3px;
+}
+.confirm-btn{
+  float: right;
+}
+
 @media (min-width: 1200px) {
   .container {
     max-width: 100% !important;

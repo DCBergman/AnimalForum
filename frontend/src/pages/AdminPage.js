@@ -3,7 +3,6 @@ import { ForumContext } from "../context/ForumContextProvider";
 import "../index.css";
 import Card  from "react-bootstrap/Card";
 import Accordion from "react-bootstrap/Accordion";
-import { useAccordionToggle } from "react-bootstrap/AccordionToggle";
 import User from "../components/User";
 
 const AdminPage = (props) => {
@@ -42,7 +41,6 @@ const AdminPage = (props) => {
                 {users.map((u, i) => (
                   <User user={u} key={i} />
                 ))}
-                <User />
               </Card>
             </Accordion.Collapse>
           </Card>
@@ -55,6 +53,7 @@ const AdminPage = (props) => {
             </Accordion.Collapse>
           </Card>
         </Accordion>
+        
       </div>
     );
 }
