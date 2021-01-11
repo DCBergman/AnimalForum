@@ -6,6 +6,7 @@ const ForumContextProvider = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState([]);
   const [thread, setThread] = useState("");
   const [posts, setPosts] = useState([]);
+  const [users, setUsers] = useState([]);
   const [currentSubforum, setCurrentSubforum] = useState(null);
 
   const fetchAllSubforums = async () => {
@@ -17,6 +18,15 @@ const ForumContextProvider = (props) => {
 
     setSubforums(subforums);
   };
+    const fetchAllUsers = async () => {
+      let response = await fetch("/api/users", {
+        method: "GET",
+        credentials: "include",
+      });
+      response = await response.json();
+
+      setUsers(response);
+    };
 
   const fetchLoggedInUser = async() => {
       let response = await fetch("/api/login", {
@@ -28,7 +38,7 @@ const ForumContextProvider = (props) => {
         if (response !== null) {
           return response;
         } else {
-          console.log("add alert for wrong user info");
+          
           return null; 
         }
       } catch {
@@ -81,7 +91,9 @@ const ForumContextProvider = (props) => {
     isLoggedIn,
     posts,
     thread,
+    users,
     fetchAllSubforums,
+    fetchAllUsers,
     setCurrentSubforum,
     fetchPostsByThreadId,
     fetchLoggedInUser,

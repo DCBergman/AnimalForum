@@ -6,6 +6,7 @@ import ThreadPage from './pages/ThreadPage';
 import Header from './components/Header';
 import RegisterAccount from './pages/RegisterAccount'; 
 import LoginPage from './pages/LoginPage'; 
+import AdminPage from './pages/AdminPage'; 
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
               <Route exact path="/threads/:subforumId/:threadId" component={ThreadPage} />
               <Route exact path="/register" component={RegisterAccount} />
               <Route exact path="/login" component={LoginPage} />
+              <Route exact path="/admin" component={AdminPage} />
             </Switch>
           </main>
         </ForumContextProvider>
