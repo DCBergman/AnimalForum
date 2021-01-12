@@ -242,6 +242,12 @@ code {
 .confirm-btn{
   float: right;
 }
+.acc-header{
+  font-weight: 700;
+}
+.acc-header:hover{
+  cursor: pointer;
+}
 
 @media (min-width: 1200px) {
   .container {

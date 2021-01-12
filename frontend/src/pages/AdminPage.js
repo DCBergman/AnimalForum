@@ -12,6 +12,7 @@ const AdminPage = (props) => {
   useEffect(()=>{
     forumContext.fetchAllUsers();
   },[]);
+  
 
   // const fetchAllUsers = async ()=>{
   //   let response = await fetch("/api/users", {
@@ -33,7 +34,11 @@ const AdminPage = (props) => {
       <div className="accordion-div">
         <Accordion>
           <Card>
-            <Accordion.Toggle as={Card.Header} eventKey="0">
+            <Accordion.Toggle
+              as={Card.Header}
+              className="acc-header"
+              eventKey="0"
+            >
               Users
             </Accordion.Toggle>
             <Accordion.Collapse eventKey="0">
@@ -45,7 +50,11 @@ const AdminPage = (props) => {
             </Accordion.Collapse>
           </Card>
           <Card>
-            <Accordion.Toggle as={Card.Header} eventKey="1">
+            <Accordion.Toggle
+              className="acc-header"
+              as={Card.Header}
+              eventKey="1"
+            >
               Click me!
             </Accordion.Toggle>
             <Accordion.Collapse eventKey="1">
@@ -53,7 +62,6 @@ const AdminPage = (props) => {
             </Accordion.Collapse>
           </Card>
         </Accordion>
-        
       </div>
     );
 }
