@@ -36,7 +36,7 @@ const ForumContextProvider = (props) => {
     });
     response = await response.json();
 
-    setModerators(response);
+    return response;
   };
 
   const fetchLoggedInUser = async () => {

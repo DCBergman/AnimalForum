@@ -40,7 +40,7 @@ const EditModal =(props)=>{
     }else if(editType==="removeModerator"){
       console.log(modForum);
       fc.removeModeratorfromSubforum(modForum, userId);
-      fc.fetchAllModerators();
+      updateUserRole();
     }else if(editType==="delete"){
       fc.deleteUser(userId);
 
@@ -48,21 +48,15 @@ const EditModal =(props)=>{
     props.toggle();
 
   }
-  useEffect(()=>{
-    console.log(fc.moderators);
-    isUserModerator(props.user.id);
-  },[fc.moderators])
 
-  const isUserModerator=(id)=>{
-    fc.moderators.forEach(mod => {
-      if(mod.userId===id){
-        return;
-      }else{
-        fc.changeUserRole(id, "basicUser");
-      }
-      
-    });
-  }
+  const updateUserRole= async ()=>{
+    let forums = await fc.fetchAllModerators();
+    console.log(forums);
+    if(forums.length===0){
+      fc.changeUserRole(props.user.id, "basicUser");
+    }
+  };
+
 
   const optionsArray = () => {
     const options = [
