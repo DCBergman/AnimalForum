@@ -4,7 +4,8 @@ export const ForumContext = createContext();
 const ForumContextProvider = (props) => {
   const [subforums, setSubforums] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState([]);
-  const [thread, setThread] = useState("");
+  const [thread, setThread] = useState([]);
+  const [currentModForums, setCurrentModForums] = useState([]);
   const [posts, setPosts] = useState([]);
   const [users, setUsers] = useState([]);
   const [currentSubforum, setCurrentSubforum] = useState(null);
@@ -64,11 +65,25 @@ const ForumContextProvider = (props) => {
     setThread(response);
   };
 
+  const fetchSubforumByModeratorId = async (id) => {
+    let response = await fetch("/api/subforums/user/" + id, {
+      method: "GET",
+      credentials: "include",
+    });
+    try{
+      response = await response.json();
+      console.log(response.filter((r) => r.id));
+      setCurrentModForums(response.filter((r) => r.id));
+    }catch{
+      console.log("error");
+    }
+
+  }
   const addModeratorToSubforum = async (userId, subforumId) => {
-    let response = await fetch("/api/subforums/" + subforumId, {
-      method: "PUT",
+    let response = await fetch("/api/moderators/", {
+      method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ moderator: userId }),
+      body: JSON.stringify({subforumId:subforumId, userId: userId}),
     });
     try {
       response = await response.json();
@@ -129,10 +144,12 @@ const ForumContextProvider = (props) => {
     posts,
     thread,
     users,
+    currentModForums,
     fetchAllSubforums,
     fetchAllUsers,
     setCurrentSubforum,
     fetchPostsByThreadId,
+    fetchSubforumByModeratorId,
     fetchLoggedInUser,
     setIsLoggedIn,
     fetchThreadById,

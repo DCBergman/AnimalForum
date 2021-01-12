@@ -22,17 +22,12 @@ const EditModal =(props)=>{
   useEffect(() => {
     console.log(props.user);
     fc.fetchAllSubforums();
+    fc.fetchSubforumByModeratorId(props.user.id);
   }, []);
 
   useEffect(()=>{
-    console.log(modForum);
-  },[modForum])
-
-  const handleChange=(event)=>{
-
-    console.log(event.target.value);
-
-  };
+    console.log(fc.currentModForums);
+  },[fc.currentModForums])
 
   const editUser=()=>{
     console.log(modForum);
@@ -42,6 +37,10 @@ const EditModal =(props)=>{
     }else if(editType ==="moderator"){
       console.log(modForum);
       fc.addModeratorToSubforum(userId, modForum);
+    }else if(editType==="removeModerator"){
+      
+      console.log(editType);
+
     }else if(editType==="delete"){
       fc.deleteUser(userId);
 
@@ -55,10 +54,25 @@ const EditModal =(props)=>{
     fc.subforums.map((sf, i) => (
       options.push(
         <option key={sf.id} value={sf.id}>
-          {sf.title}
+          {/* {sf.title} */}
         </option>
       )
     ));
+    return options;
+  };
+
+  const currentForumsArray = () => {
+    const options = [];
+    // console.log(fc.currentModForums.filter((f) => f.id));
+    fc.currentModForums
+      .filter((cf) => cf.id)
+      .map((cf, i) =>
+        options.push(
+          <option key={cf} value={cf}>
+            {cf.title}
+          </option>
+        )
+      );
     return options;
   };
 
@@ -76,22 +90,46 @@ const EditModal =(props)=>{
             Make user admin
           </Label>
         </FormGroup>
-        <FormGroup check>
-          <Label check>
-            <Input
-              type="radio"
-              name="radio1"
-              onChange={() => setEditType("moderator")}
-            />
-            Make user moderator of
-          </Label>
-          <FormGroup>
-            <Label for="exampleSelect">subforum:</Label>
-            <Input type="select" onChange={e=>setModForum(e.target.value)}>
-              {optionsArray()}
-            </Input>
+        {props.user.userRole === "moderator" ? (
+          <FormGroup check>
+            <Label check>
+              <Input
+                type="radio"
+                name="radio1"
+                onChange={() => setEditType("removeModerator")}
+              />
+              Remove moderator role from user
+            </Label>
+            <FormGroup>
+              <Label for="exampleSelect">for subforum:</Label>
+              <Input
+                type="select"
+                onChange={(e) => setModForum(e.target.value)}
+              >
+                {currentForumsArray()}
+              </Input>
+            </FormGroup>
           </FormGroup>
-        </FormGroup>
+        ) : ("")}
+          <FormGroup check>
+            <Label check>
+              <Input
+                type="radio"
+                name="radio1"
+                onChange={() => setEditType("moderator")}
+              />
+              Make user moderator of
+            </Label>
+            <FormGroup>
+              <Label for="exampleSelect">subforum:</Label>
+              <Input
+                type="select"
+                onChange={(e) => setModForum(e.target.value)}
+              >
+                {optionsArray()}
+              </Input>
+            </FormGroup>
+          </FormGroup>
         <Badge color="danger" className="danger-badge">
           <FormGroup className="delete-radio-btn" check>
             <Label check>

@@ -17,6 +17,7 @@ module.exports = class RestApi {
       this.createDeleteRroute(table);
       this.createGetBySubforumIdRoute(table);
       this.createGetByThreadIdRoute(table);
+      this.createGetSubforumByModeratorIdRoute(table);
     }
     this.addLoginRoutes();
   }
@@ -57,6 +58,20 @@ module.exports = class RestApi {
       let statement = this.db.prepare(`
      SELECT * FROM  posts
      WHERE threadId = $threadId`);
+      let result = statement.all(req.params) || null;
+
+      res.json(result);
+    });
+  }
+
+  createGetSubforumByModeratorIdRoute() {
+    this.app.get(this.prefix + "subforums/user/:moderatorId", (req, res) => {
+      let statement = this.db.prepare(`
+      SELECT *
+      FROM subforums
+      WHERE id IN (SELECT subforumId
+                   FROM moderators
+                   WHERE userId = $moderatorId )`);
       let result = statement.all(req.params) || null;
 
       res.json(result);

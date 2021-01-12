@@ -55,7 +55,7 @@ const AdminPage = (props) => {
               as={Card.Header}
               eventKey="1"
             >
-              Click me!
+              Subforums
             </Accordion.Toggle>
             <Accordion.Collapse eventKey="1">
               <Card.Body>Hello! I'm another body</Card.Body>

@@ -42,6 +42,7 @@ const Header = (props) => {
         setLoggedIn(false);
         history.push("/");
   } 
+  
   function routeToHomepage(){
     history.push("/");
   } 
@@ -51,14 +52,16 @@ const Header = (props) => {
   function routeToRegister(){
     history.push("/register");
   } 
-
+  function routeToAdmin() {
+    history.push("/admin");
+  } 
   function SwitchCase(props){
     switch(props.role){
       case "basicUser":
         return "";
       case "admin":
         return (
-          <section className="header-p" >
+          <section className="header-p" onClick={routeToAdmin}>
             Admin
           </section>
         );

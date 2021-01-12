@@ -85,6 +85,23 @@ module.exports = {
 
     return false;
   },
+  moderators(user, method, req) {
+    console.log("ACLS", user);
+    if (method === "POST" && user.userRole === "admin") {
+      return true;
+    }
+    if (method === "GET") {
+      return true;
+    }
+    if (method === "PUT" && user.userRole === "admin") {
+      return true;
+    }
+    if (method === "DELETE" && user.userRole === "admin") {
+      return true;
+    }
+
+    return false;
+  },
 
   login() {
     return true;
