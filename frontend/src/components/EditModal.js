@@ -29,30 +29,34 @@ const EditModal =(props)=>{
     console.log(fc.currentModForums);
   },[fc.currentModForums])
 
-  const editUser=()=>{
+  const editUser=async ()=>{
     console.log(modForum);
     let userId = props.user.id;
     if(editType==="admin"){
-      fc.changeUserRole(userId, editType);
+     await fc.changeUserRole(userId, editType);
     }else if(editType ==="moderator"){
       console.log(modForum);
-      fc.addModeratorToSubforum(userId, modForum);
+     await fc.addModeratorToSubforum(userId, modForum);
     }else if(editType==="removeModerator"){
       console.log(modForum);
-      fc.removeModeratorfromSubforum(modForum, userId);
-      updateUserRole();
+      await fc.removeModeratorfromSubforum(modForum, userId);
+      await fc.fetchSubforumByModeratorId(userId);
+      
     }else if(editType==="delete"){
-      fc.deleteUser(userId);
+     await fc.deleteUser(userId);
 
     }
     props.toggle();
 
   }
+  useEffect(()=>{
+    updateUserRole();
+  },[fc.currentModForums])
 
   const updateUserRole= async ()=>{
     let forums = await fc.fetchAllModerators();
     console.log(forums);
-    if(forums.length===0){
+    if(fc.currentModForums.length===0){
       fc.changeUserRole(props.user.id, "basicUser");
     }
   };
@@ -99,6 +103,7 @@ const EditModal =(props)=>{
     <Modal isOpen={props.modal} toggle={props.toggle} className={className}>
       <ModalHeader toggle={props.toggle}>Edit user</ModalHeader>
       <ModalBody>
+        {props.user.userRole !== "admin" ?(
         <FormGroup check>
           <Label check>
             <Input
@@ -109,6 +114,7 @@ const EditModal =(props)=>{
             Make user admin
           </Label>
         </FormGroup>
+        ):("")}
         {props.user.userRole === "moderator" ? (
           <FormGroup check>
             <Label check>
@@ -130,6 +136,7 @@ const EditModal =(props)=>{
             </FormGroup>
           </FormGroup>
         ) : ("")}
+        {props.user.userRole !== "admin" ? (
           <FormGroup check>
             <Label check>
               <Input
@@ -149,6 +156,7 @@ const EditModal =(props)=>{
               </Input>
             </FormGroup>
           </FormGroup>
+          ):("")}
         <Badge color="danger" className="danger-badge">
           <FormGroup className="delete-radio-btn" check>
             <Label check>

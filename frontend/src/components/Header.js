@@ -67,9 +67,10 @@ const Header = (props) => {
         );
       case "moderator":
         return (
-          <section className="header-p" >
-            My Forums
-          </section>
+          // <section className="header-p" >
+          //   My Forums
+          // </section>
+          ""
         );
         default:
           return"";

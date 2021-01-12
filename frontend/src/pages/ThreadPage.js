@@ -14,6 +14,7 @@ const ThreadPage = (props) => {
   const [warning, setWarning] = useState(false);
   const [postEnabled, setPostEnabled] = useState("");
   const [isModAdmin, setIsModAdmin] = useState(false);
+  const [modForums, setModForums] = useState([]);
 
   useEffect(() => {
     console.log(forumContext.thread.isOpen);
