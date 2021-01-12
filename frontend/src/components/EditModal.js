@@ -40,13 +40,28 @@ const EditModal =(props)=>{
     }else if(editType==="removeModerator"){
       console.log(modForum);
       fc.removeModeratorfromSubforum(modForum, userId);
-
+      fc.fetchAllModerators();
     }else if(editType==="delete"){
       fc.deleteUser(userId);
 
     }
     props.toggle();
 
+  }
+  useEffect(()=>{
+    console.log(fc.moderators);
+    isUserModerator(props.user.id);
+  },[fc.moderators])
+
+  const isUserModerator=(id)=>{
+    fc.moderators.forEach(mod => {
+      if(mod.userId===id){
+        return;
+      }else{
+        fc.changeUserRole(id, "basicUser");
+      }
+      
+    });
   }
 
   const optionsArray = () => {

@@ -17,7 +17,7 @@ function App() {
             <Header/>
             <Switch>
               <Route exact path="/" component={Subforum} />
-              <Route exact path="/threads/:subforumId" component={ThreadsList} />
+              <Route exact path="/subforums/:subforumId" component={ThreadsList} />
               <Route exact path="/threads/:subforumId/:threadId" component={ThreadPage} />
               <Route exact path="/register" component={RegisterAccount} />
               <Route exact path="/login" component={LoginPage} />

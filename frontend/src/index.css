@@ -248,6 +248,13 @@ code {
 .acc-header:hover{
   cursor: pointer;
 }
+.thread-title-input{
+  margin:15px;
+  width:40% !important;
+}
+.create-thread-form{
+  margin:40px;
+}
 
 @media (min-width: 1200px) {
   .container {

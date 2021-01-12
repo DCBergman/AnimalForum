@@ -5,6 +5,7 @@ const ForumContextProvider = (props) => {
   const [subforums, setSubforums] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState([]);
   const [thread, setThread] = useState([]);
+  const [moderators, setModerators] = useState([]);
   const [currentModForums, setCurrentModForums] = useState([]);
   const [posts, setPosts] = useState([]);
   const [users, setUsers] = useState([]);
@@ -27,6 +28,15 @@ const ForumContextProvider = (props) => {
     response = await response.json();
 
     setUsers(response);
+  };
+  const fetchAllModerators = async () => {
+    let response = await fetch("/api/moderators", {
+      method: "GET",
+      credentials: "include",
+    });
+    response = await response.json();
+
+    setModerators(response);
   };
 
   const fetchLoggedInUser = async () => {
@@ -54,6 +64,13 @@ const ForumContextProvider = (props) => {
     posts = await posts.json();
     setPosts(posts);
   };
+  // const fetchThreadsBySubforumId = async (subforumId) => {
+  //   let posts = await fetch("/api/posts/" + threadId, {
+  //     method: "GET",
+  //     credentials: "include",
+  //   });
+  //   posts = await posts.json();
+  // };
 
   const fetchThreadById = async (id) => {
     let response = await fetch("/api/threads/" + id, {
@@ -157,9 +174,11 @@ const ForumContextProvider = (props) => {
     posts,
     thread,
     users,
+    moderators,
     currentModForums,
     fetchAllSubforums,
     fetchAllUsers,
+    fetchAllModerators,
     setCurrentSubforum,
     fetchPostsByThreadId,
     fetchSubforumByModeratorId,
