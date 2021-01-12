@@ -29,7 +29,6 @@ module.exports = {
   },
 
   threads(user, method, req) {
-    console.log("ACLS", user);
     if (method === "POST" && user.userRole === "basicUser") {
       return true;
     }
@@ -69,7 +68,6 @@ module.exports = {
   },
 
   subforums(user, method, req) {
-    console.log("ACLS", user);
     if (method === "POST" && user.userRole === "admin") {
       return true;
     }
@@ -86,7 +84,6 @@ module.exports = {
     return false;
   },
   moderators(user, method, req) {
-    console.log("ACLS", user);
     if (method === "POST" && user.userRole === "admin") {
       return true;
     }

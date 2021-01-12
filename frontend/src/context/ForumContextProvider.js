@@ -107,6 +107,19 @@ const ForumContextProvider = (props) => {
     }
   };
 
+  const removeModeratorfromSubforum = async (subforumId, userId) => {
+    let response = await fetch("/api/moderators/" + subforumId + "/" + userId, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    });
+    try {
+      response = await response.json();
+      console.log(response);
+    } catch {
+      console.log("Error");
+    }
+  };
+
   const changeUserRole = async (id, userRole) => {
     let response = await fetch("/api/users/" + id, {
       method: "PUT",
@@ -157,6 +170,7 @@ const ForumContextProvider = (props) => {
     deleteUser,
     changeUserRole,
     changeThreadStatus,
+    removeModeratorfromSubforum
   };
 
   return (

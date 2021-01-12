@@ -38,8 +38,8 @@ const EditModal =(props)=>{
       console.log(modForum);
       fc.addModeratorToSubforum(userId, modForum);
     }else if(editType==="removeModerator"){
-      
-      console.log(editType);
+      console.log(modForum);
+      fc.removeModeratorfromSubforum(modForum, userId);
 
     }else if(editType==="delete"){
       fc.deleteUser(userId);
@@ -50,11 +50,16 @@ const EditModal =(props)=>{
   }
 
   const optionsArray = () => {
-    const options = [];
+    const options = [
+      <option disabled selected value>
+        {" "}
+        -- select an option --{" "}
+      </option>,
+    ];
     fc.subforums.map((sf, i) => (
       options.push(
         <option key={sf.id} value={sf.id}>
-          {/* {sf.title} */}
+          {sf.title}
         </option>
       )
     ));
@@ -62,13 +67,18 @@ const EditModal =(props)=>{
   };
 
   const currentForumsArray = () => {
-    const options = [];
+    const options = [
+      <option disabled selected value>
+        {" "}
+        -- select an option --{" "}
+      </option>,
+    ];
     // console.log(fc.currentModForums.filter((f) => f.id));
     fc.currentModForums
       .filter((cf) => cf.id)
       .map((cf, i) =>
         options.push(
-          <option key={cf} value={cf}>
+          <option key={cf.id} value={cf.id}>
             {cf.title}
           </option>
         )

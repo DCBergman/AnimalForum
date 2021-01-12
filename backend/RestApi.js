@@ -15,9 +15,10 @@ module.exports = class RestApi {
       this.createGetRoute(table);
       this.createPutRoute(table);
       this.createDeleteRroute(table);
-      this.createGetBySubforumIdRoute(table);
-      this.createGetByThreadIdRoute(table);
-      this.createGetSubforumByModeratorIdRoute(table);
+      this.createGetBySubforumIdRoute();
+      this.createGetByThreadIdRoute();
+      this.createGetSubforumByModeratorIdRoute();
+      this.createDeleteModFromSubforumRoute();
     }
     this.addLoginRoutes();
   }
@@ -62,6 +63,17 @@ module.exports = class RestApi {
 
       res.json(result);
     });
+  }
+
+  createDeleteModFromSubforumRoute(){
+    this.app.delete(this.prefix + "moderators/:subforumId/:userId", (req, res) => {
+      let statement = this.db.prepare(`
+      DELETE FROM moderators
+      WHERE userId = $userId
+      AND subforumId = $subforumId`);
+     res.json(statement.run(req.params));
+    });
+      
   }
 
   createGetSubforumByModeratorIdRoute() {
