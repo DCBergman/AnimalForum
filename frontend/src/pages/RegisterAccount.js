@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import "../index.css";
 
 
@@ -20,7 +20,7 @@ const RegisterAccount = (props) => {
         userRole
       };
 
-        let response = await fetch("http://localhost:3000/api/users", {
+        let response = await fetch("/api/users", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(credentials),
@@ -50,12 +50,10 @@ const RegisterAccount = (props) => {
           </label>
           <br />
           <input
-            id="email"
+            classname="email"
             type="email"
             name="email"
-            autoFocus
             required
-            className="inputFit"
             onChange={(e) => setEmail(e.target.value)}
           />
         </section>
@@ -66,10 +64,9 @@ const RegisterAccount = (props) => {
           </label>
           <br />
           <input
-            id="username"
+            classname="username"
             name="username"
             required
-            className="inputFit"
             onChange={(e) => setUsername(e.target.value)}
           />
         </section>
@@ -80,7 +77,7 @@ const RegisterAccount = (props) => {
           </label>
           <br />
           <input
-            id="password"
+            classname="password"
             type="password"
             name="new-password"
             aria-describedby="password-constraints"
@@ -95,11 +92,10 @@ const RegisterAccount = (props) => {
           </label>
           <br />
           <input
-            id="confirmPassword"
+            className="confirmPassword"
             type="password"
             name="new-password"
             required
-            className="inputFit"
             onChange={(e) => setPassword2(e.target.value)}
           />
         </section>

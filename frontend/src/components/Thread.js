@@ -1,6 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Card  } from "reactstrap";
-import { ForumContext } from "../context/ForumContextProvider";
+import React, { useEffect, useState } from "react";
 import "../index.css";
 
 const Thread = (props) => {
@@ -8,15 +6,15 @@ const Thread = (props) => {
 
   useEffect(()=>{
     getCreator();
-    console.log(props.thread);
+    console.log(props);
   },[])
+
 
   const getCreator = async() =>{
         let fetchedCreator = await fetch("/api/users/" + props.thread.creator,{
           method: 'GET',
           credentials: 'include'
         });
-        console.log(fetchedCreator.username);
         setCreator(await fetchedCreator.json());
   }
 

@@ -1,11 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Redirect, useHistory } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Card  } from "reactstrap";
-import { ForumContext } from "../context/ForumContextProvider";
 import "../index.css";
 
 const Subforum = (props) => {
-  const forumContext = useContext(ForumContext);
   const [subforums, setSubforums] = useState([]);
   const history = useHistory();
 
@@ -18,19 +16,15 @@ const Subforum = (props) => {
       method: 'GET',
       credentials: 'include'
     });
-    console.log(allSubforums);
     setSubforums(await allSubforums.json());
   };
 
   function redirect (id) {
-    console.log(id);
-    history.push('/threads/' + id);
+    
+    history.push('/subforums/' + id);
 
   }
 
-  useEffect(() => {
-    console.log(subforums, " ", forumContext.subforums);
-  }, [subforums]);
 
   return (
     <div className="sf-div">

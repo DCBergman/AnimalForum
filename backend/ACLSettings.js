@@ -29,11 +29,29 @@ module.exports = {
   },
 
   threads(user, method, req) {
-    console.log("ACLS", user);
     if (method === "POST" && user.userRole === "basicUser") {
       return true;
     }
-    if (method === "GET" && user.userRole) {
+    if (method === "GET") {
+      return true;
+    }
+    if (method === "PUT" && user.userRole === "admin") {
+      return true;
+    }
+    if (method === "PUT" && user.userRole === "admin" || "moderator") {
+      return true;
+    }
+    if (method === "DELETE" && user.userRole === "admin") {
+      return true;
+    }
+
+    return false;
+  },
+  posts(user, method, req) {
+    if (method === "POST" && user.userRole) {
+      return true;
+    }
+    if (method === "GET") {
       return true;
     }
     if (method === "PUT" && user.userRole === "admin") {
@@ -50,7 +68,22 @@ module.exports = {
   },
 
   subforums(user, method, req) {
-    console.log("ACLS", user);
+    if (method === "POST" && user.userRole === "admin") {
+      return true;
+    }
+    if (method === "GET") {
+      return true;
+    }
+    if (method === "PUT" && user.userRole === "admin") {
+      return true;
+    }
+    if (method === "DELETE" && user.userRole === "admin") {
+      return true;
+    }
+
+    return false;
+  },
+  moderators(user, method, req) {
     if (method === "POST" && user.userRole === "admin") {
       return true;
     }
