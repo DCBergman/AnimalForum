@@ -17,7 +17,6 @@ const ThreadPage = (props) => {
   const [modForums, setModForums] = useState([]);
 
   useEffect(() => {
-    console.log(forumContext.thread.isOpen);
     if (forumContext.thread.isOpen !== undefined) {
       localStorage.setItem("thread-status", forumContext.thread.isOpen);
     }
@@ -26,7 +25,6 @@ const ThreadPage = (props) => {
         localStorage.getItem("thread-status", forumContext.thread.isOpen)
       );
     }
-      console.log(isOpen);
     setThread(forumContext.thread);
     fetchData();
   }, []);
@@ -38,15 +36,46 @@ const ThreadPage = (props) => {
   useEffect(() => {
     setIsOpen(forumContext.thread.isOpen);
   }, [forumContext.thread]);
-  
+
+  const isForumMod =()=>{
+    let user= forumContext.fetchLoggedInUser();
+    let forums = forumContext.fetchSubforumByModeratorId(user.id);
+    if(forums.length!==0){
+      forums.forEach(f => {
+        if(f.userId===user.id){
+          return true;
+        }else{
+          return false;
+        }
+      });
+    }else{
+      return false;
+    }
+
+  }
+  const fetchModForums =async () =>{
+    await forumContext.fetchSubforumByModeratorId(user.id);
+  }
+
   useEffect(() => {
    if(user){
+     fetchModForums();
      if(user.userRole ==="basicUser" && isOpen){
        setPostEnabled(true);
-     }else if (user.userRole === "admin"|| "moderator"){
+     }else if (user.userRole === "admin"){
        setPostEnabled(true);
        setIsModAdmin(true);
-     }else{
+     }else if (user.userRole==="moderator" && forumContext.currentModForums.length>0) {
+       let forums =forumContext.currentModForums;
+       for(let i =0; i<forums.length; i++){
+         console.log(forums[i], props.match.params.subforumId);
+         if(forums[i].id==props.match.params.subforumId){
+           console.log("check");
+           setPostEnabled(true);
+           setIsModAdmin(true);
+         }
+       }
+     } else {
        setPostEnabled(false);
      }
    }else{
@@ -70,6 +99,9 @@ const ThreadPage = (props) => {
   useEffect(() => {
     console.log(isOpen);
   }, [isOpen]);
+  useEffect(() => {
+    console.log(isModAdmin);
+  }, [isModAdmin]);
 
   async function createPost(e) {
     e.preventDefault();
