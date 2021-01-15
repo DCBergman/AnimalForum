@@ -1,6 +1,7 @@
-import Subforum from './components/Subforum';
+import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ForumContextProvider from './context/ForumContextProvider';
+import Subforum from "./components/Subforum";
 import ThreadsList from './pages/ThreadsList';
 import ThreadPage from './pages/ThreadPage';
 import Header from './components/Header';
