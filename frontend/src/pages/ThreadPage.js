@@ -196,12 +196,12 @@ const ThreadPage = (props) => {
     <div className="thread-page-div">
       <ListGroupItem className="thread-header list-group-item list-group-item-dark">
         <div className="post-top-row">
-          <p className="thread-title">{thread.title}</p>
+          <p className="thread-page-title">{thread.title}</p>
           <p className="post-date">{threadDate}</p>
         </div>
         <div className="post-bottom-row">
           <p className="post-text">{thread.description}</p>
-          <p className="thread-creator">{threadCreator.username}</p>
+          <p className="thread-page-creator">{threadCreator.username}</p>
         </div>
       </ListGroupItem>
       {forumContext.posts.map((p, i) => (
