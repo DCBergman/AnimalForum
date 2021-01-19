@@ -20,7 +20,7 @@ const ThreadPage = (props) => {
     if (forumContext.thread.isOpen !== undefined) {
       localStorage.setItem("thread-status", forumContext.thread.isOpen);
     }
-    if (localStorage.getItem("thread-status")!== undefined){
+    if (localStorage.getItem("thread-status") !== undefined) {
       setIsOpen(
         localStorage.getItem("thread-status", forumContext.thread.isOpen)
       );
@@ -33,70 +33,79 @@ const ThreadPage = (props) => {
     await forumContext.fetchPostsByThreadId(props.match.params.threadId);
     setUser(await forumContext.fetchLoggedInUser());
   }
-  useEffect(() => {
-    setIsOpen(forumContext.thread.isOpen);
-  }, [forumContext.thread]);
+  // useEffect(() => {
+  //   console.log("isOpen" , isOpen);
+  //   setIsOpen(forumContext.thread.isOpen);
+  // }, [forumContext.thread]);
 
-  const isForumMod =()=>{
-    let user= forumContext.fetchLoggedInUser();
-    let forums = forumContext.fetchSubforumByModeratorId(user.id);
-    if(forums.length!==0){
-      forums.forEach(f => {
-        if(f.userId===user.id){
-          return true;
-        }else{
-          return false;
-        }
-      });
-    }else{
-      return false;
+
+  const fetchModForums = async () => {
+    if(user){
+      await forumContext.fetchSubforumByModeratorId(user.id);
     }
-
-  }
-  const fetchModForums =async () =>{
-    await forumContext.fetchSubforumByModeratorId(user.id);
-  }
+  };
 
   useEffect(() => {
-   if(user){
-     fetchModForums();
-     if(user.userRole ==="basicUser" && isOpen){
-       setPostEnabled(true);
-     }else if (user.userRole === "admin"){
-       setPostEnabled(true);
-       setIsModAdmin(true);
-     }else if (user.userRole==="moderator" && forumContext.currentModForums.length>0) {
-       let forums =forumContext.currentModForums;
-       for(let i =0; i<forums.length; i++){
+    fetchModForums();
+  }, [user]);
+
+  useEffect(() => {
+    checkUserPriv();
+  }, [forumContext.currentModForums]);
+
+
+
+  const checkUserPriv = async () => {
+     if (user) {
+      // fetchModForums();
+      if (user.userRole === "basicUser" && isOpen) {
+        setPostEnabled(true);
+      } else if (user.userRole === "admin") {
+        setPostEnabled(true);
+        setIsModAdmin(true);
+      } else if (
+        user.userRole === "moderator" &&
+        forumContext.currentModForums.length > 0
+      ) {
+       let forums = forumContext.currentModForums;
+
+       console.log(forumContext.currentModForums);
+       for (let i = 0; i < forums.length; i++) {
          console.log(forums[i], props.match.params.subforumId);
-         if(forums[i].id==props.match.params.subforumId){
+         if (forums[i].id == props.match.params.subforumId) {
            console.log("check");
-           setPostEnabled(true);
            setIsModAdmin(true);
+            setPostEnabled(true);
+         }
+         else{
+           setIsModAdmin(false);
+           setPostEnabled(true);
          }
        }
-     } else {
-       setPostEnabled(false);
-     }
-   }else{
-     setPostEnabled(false);
-   }
-  }, [user]);
+       
+      } else {
+        setPostEnabled(false);
+      }
+    } else {
+      setPostEnabled(false);
+    }
+  };
 
   async function updateStatus() {
     let status = localStorage.getItem("thread-status");
     let id = props.match.params.threadId;
     console.log(status);
 
-    if(status === "true"){
+    if (status === "true") {
       setIsOpen(false);
       forumContext.changeThreadStatus(id, "false");
-    }else if(status==="false"){
+    } else if (status === "false") {
       setIsOpen(true);
       forumContext.changeThreadStatus(id, "true");
     }
   }
   useEffect(() => {
+    console.log("post", postEnabled, " user ", user);
     console.log(isOpen);
   }, [isOpen]);
   useEffect(() => {
@@ -143,9 +152,9 @@ const ThreadPage = (props) => {
     }
     await forumContext.fetchPostsByThreadId(props.match.params.threadId);
   }
-  // useEffect(() => {
-  //   console.log(forumContext.posts);
-  // }, [forumContext.posts]);
+  useEffect(() => {
+    console.log(forumContext.currentModForums);
+  }, [forumContext.currentModForums]);
 
   return (
     <div className="thread-page-div">
@@ -153,8 +162,7 @@ const ThreadPage = (props) => {
         <Post post={p} key={i} />
       ))}
 
-      {postEnabled
-      ? (
+      {postEnabled ? (
         <div className="post-form">
           <Row>
             <Col sm={{ size: 7, offset: 0 }}>
@@ -166,7 +174,7 @@ const ThreadPage = (props) => {
               />
             </Col>
             <Col className="checkbox-col" sm={{ size: "auto" }}>
-              {(isModAdmin) && (
+              {isModAdmin && (
                 <div>
                   <Row>
                     <Label check>
