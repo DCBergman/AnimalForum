@@ -255,6 +255,18 @@ code {
 .create-thread-form{
   margin:40px;
 }
+.thread-title{
+  font-size:35px;
+  margin:0px;
+}
+.thread-creator{
+   width: auto;
+   float:right;
+  grid-column: 2;
+  margin-bottom: 0;
+  font-weight: 700;
+  text-decoration: underline;
+}
 
 @media (min-width: 1200px) {
   .container {

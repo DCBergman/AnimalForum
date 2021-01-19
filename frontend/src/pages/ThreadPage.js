@@ -3,7 +3,7 @@ import { ForumContext } from "../context/ForumContextProvider";
 import { FaLock, FaLockOpen } from "react-icons/fa";
 import Post from "../components/Post";
 import "../index.css";
-import { Button, Col, Input, Label, Row } from "reactstrap";
+import { Button, Col, Input, Label, ListGroupItem, Row } from "reactstrap";
 
 const ThreadPage = (props) => {
   const forumContext = useContext(ForumContext);
@@ -14,7 +14,8 @@ const ThreadPage = (props) => {
   const [warning, setWarning] = useState(false);
   const [postEnabled, setPostEnabled] = useState("");
   const [isModAdmin, setIsModAdmin] = useState(false);
-  const [modForums, setModForums] = useState([]);
+  const [threadDate, setThreadDate] = useState("");
+  const [threadCreator, setThreadCreator] = useState("");
 
   useEffect(() => {
     if (forumContext.thread.isOpen !== undefined) {
@@ -25,18 +26,53 @@ const ThreadPage = (props) => {
         localStorage.getItem("thread-status", forumContext.thread.isOpen)
       );
     }
-    setThread(forumContext.thread);
+    setThread(props.location.state.thread);
+    formatDate();
     fetchData();
   }, []);
 
   async function fetchData() {
     await forumContext.fetchPostsByThreadId(props.match.params.threadId);
     setUser(await forumContext.fetchLoggedInUser());
+
+   
+
+       let response = await fetch("/api/users/" + props.location.state.thread.creator, {
+         method: "GET",
+         credentials: "include",
+       });
+       response = await response.json();
+
+        console.log(response);
+       setThreadCreator(response);
   }
-  // useEffect(() => {
-  //   console.log("isOpen" , isOpen);
-  //   setIsOpen(forumContext.thread.isOpen);
-  // }, [forumContext.thread]);
+
+  const formatDate =() =>{
+    let date_ob =  new Date(props.location.state.thread.date);
+
+    let date = ("0" + date_ob.getDate()).slice(-2);
+
+    let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+
+    let year = date_ob.getFullYear();
+
+    let hours = date_ob.getHours();
+
+    let minutes = date_ob.getMinutes();
+
+
+    setThreadDate(
+      year +
+        "-" +
+        month +
+        "-" +
+        date +
+        " " +
+        hours +
+        ":" +
+        minutes 
+    );
+  }
 
 
   const fetchModForums = async () => {
@@ -153,11 +189,21 @@ const ThreadPage = (props) => {
     await forumContext.fetchPostsByThreadId(props.match.params.threadId);
   }
   useEffect(() => {
-    console.log(forumContext.currentModForums);
+    console.log(props);
   }, [forumContext.currentModForums]);
 
   return (
     <div className="thread-page-div">
+      <ListGroupItem className="thread-header list-group-item list-group-item-dark">
+        <div className="post-top-row">
+          <p className="thread-title">{thread.title}</p>
+          <p className="post-date">{threadDate}</p>
+        </div>
+        <div className="post-bottom-row">
+          <p className="post-text">{thread.description}</p>
+          <p className="thread-creator">{threadCreator.username}</p>
+        </div>
+      </ListGroupItem>
       {forumContext.posts.map((p, i) => (
         <Post post={p} key={i} />
       ))}

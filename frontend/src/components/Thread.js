@@ -40,6 +40,7 @@ const Thread = (props) => {
   return (
     <div className="thread-div">
       <p className="thread-title">{props.thread.title}</p>
+      <p>{props.thread.description}</p>
       <div className="thread-bottom-row">
         <p className="thread-date">{date}</p>
         <p className="thread-creator">{creator.username}</p>
