@@ -264,7 +264,8 @@ code {
 }
 .thread-page-creator{
    width: auto;
-   float:right;
+   text-align: right;
+   margin-right: 20px;
   grid-column: 2;
   margin-bottom: 0;
   font-weight: 700;
