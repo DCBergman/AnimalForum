@@ -271,8 +271,17 @@ code {
   font-weight: 700;
   text-decoration: underline;
 }
+
 .thread-description{
   margin-left: 10px;
+}
+.register-div{
+  display: flex;
+  justify-content: center;
+}
+.register-alert{
+  width: 50%;
+  align-self: center;
 }
 
 @media (min-width: 1200px) {
