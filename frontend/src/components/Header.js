@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Switch, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { ForumContext } from "../context/ForumContextProvider";
 import "../index.css";
 
