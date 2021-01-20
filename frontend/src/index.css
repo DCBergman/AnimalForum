@@ -83,6 +83,7 @@ code {
 }
 .thread-bottom-row {
   display: grid;
+  width: 100%;
 }
 .thread-title {
   margin-left: 10px;
@@ -91,10 +92,10 @@ code {
   margin-top: 5px;
 }
 .thread-date {
-  grid-column: 1;
-  margin-left: 10px;
+  grid-column: 2;
+  text-align: end;
+  margin-right: 10px;
   margin-bottom: 0px;
-  font-size: 14px;
   margin-top: 5px;
 }
 .thread-creator {
@@ -102,8 +103,10 @@ code {
   text-align: end;
   margin-right: 10px;
   margin-bottom: 0px;
-  font-size: 14px;
   margin-top: 5px;
+  margin-bottom: 0;
+  font-weight: 700;
+  text-decoration: underline;
 }
 .form-block {
   display: flex;
@@ -254,6 +257,22 @@ code {
 }
 .create-thread-form{
   margin:40px;
+}
+.thread-page-title{
+  font-size:35px;
+  margin:0px;
+}
+.thread-page-creator{
+   width: auto;
+   text-align: right;
+   margin-right: 20px;
+  grid-column: 2;
+  margin-bottom: 0;
+  font-weight: 700;
+  text-decoration: underline;
+}
+.thread-description{
+  margin-left: 10px;
 }
 
 @media (min-width: 1200px) {
