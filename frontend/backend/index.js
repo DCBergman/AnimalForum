@@ -5,7 +5,7 @@ const store = require("better-express-store");
 const app = express();
 const RestApi = require("./RestApi");
 const ACL = require("./ACL");
-const ACLsettings = require("./ACLsettings");
+const ACLsettings = require("./ACLSettings");
 const path = require("path");
 const pathToDb = path.join(__dirname, "../animalforum.db");
 
