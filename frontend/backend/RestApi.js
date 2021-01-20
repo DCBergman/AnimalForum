@@ -2,11 +2,13 @@ const Encrypt = require("./Encrypt");
 const sqlite3 = require("better-sqlite3");
 
 module.exports = class RestApi {
-  constructor(expressApp, urlPrefix = "/api/", pathToDb = "../animalforum.db") {
+  constructor(expressApp, urlPrefix = "/api/", pathToDb ) {
     this.app = expressApp;
     this.db = sqlite3(pathToDb);
     this.prefix = urlPrefix;
 
+    console.log(pathToDb);
+    console.log(__dirname);
     let tables = this.getAllTables();
     console.log("tables: ", tables);
     for (let table of tables) {
