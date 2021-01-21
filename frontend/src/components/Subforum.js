@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Card  } from "reactstrap";
+import { Alert, Card  } from "reactstrap";
 import "../index.css";
 
 const Subforum = (props) => {
@@ -10,6 +10,8 @@ const Subforum = (props) => {
   useEffect(() => {
     fetchAllSubforums();
   }, []);
+
+
 
   const fetchAllSubforums = async () => {
     let allSubforums = await fetch("/api/subforums", {

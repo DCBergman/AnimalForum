@@ -5,7 +5,9 @@ const store = require("better-express-store");
 const app = express();
 const RestApi = require("./RestApi");
 const ACL = require("./ACL");
-const ACLsettings = require("./ACLsettings");
+const ACLsettings = require("./ACLSettings");
+const path = require("path");
+const pathToDb = path.join(__dirname, "../animalforum.db");
 
 app.use(express.json());
 
@@ -28,14 +30,14 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: { secure: "auto" },
-    store: store({ dbPath: "./animalforum.db" }),
+    store: store({ dbPath: pathToDb }),
   })
 );
 
 app.use(ACL(ACLsettings));
 
 app.listen(3001, () => {
-  console.log("Listening on port 3000");
+  console.log("Listening on port 3001");
 });
 
-new RestApi(app, "/api/", "./animalforum.db");
+new RestApi(app, "/api/", pathToDb);

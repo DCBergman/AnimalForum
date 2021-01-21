@@ -108,7 +108,7 @@ const ThreadPage = (props) => {
        console.log(forumContext.currentModForums);
        for (let i = 0; i < forums.length; i++) {
          console.log(forums[i], props.match.params.subforumId);
-         if (forums[i].id == props.match.params.subforumId) {
+         if (forums[i].id === props.match.params.subforumId) {
            console.log("check");
            setIsModAdmin(true);
             setPostEnabled(true);
