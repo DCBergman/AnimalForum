@@ -81,7 +81,7 @@ const Header = (props) => {
   return (
     <div className="header-div">
       <section className="header-title" onClick={routeToHomepage}>
-        Monzoo
+        Animal Forum
       </section>
       {loggedIn ? (
         <div className="header-right-aligned">
