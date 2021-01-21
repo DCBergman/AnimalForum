@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Alert } from "reactstrap";
+import { Alert, Row } from "reactstrap";
 import "../index.css";
 
 const RegisterAccount = (props) => {
@@ -7,8 +7,8 @@ const RegisterAccount = (props) => {
   const [password, setPassword] = useState([]);
   const [username, setUsername] = useState([]);
   const [password2, setPassword2] = useState([]);
-   const [visible, setVisible] = useState(false);
-
+  const [mismatch, setMismatch] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   const onDismiss = () => setVisible(false);
 
@@ -17,6 +17,7 @@ const RegisterAccount = (props) => {
 
     let userRole = "basicUser";
     if (password === password2) {
+      setMismatch(false);
       const credentials = {
         email,
         username,
@@ -42,6 +43,7 @@ const RegisterAccount = (props) => {
         console.log("Bad credentials");
       }
     } else {
+      setMismatch(true);
       console.log("passwords don't match");
     }
   }
@@ -57,14 +59,15 @@ const RegisterAccount = (props) => {
         >
           <h4 className="alert-heading">Grattis!</h4>
           <p>
-            Ditt konto har blivit registrerat! 
-            <br/>För att logga in med dina uppgifter klicka på Login i huvudmenyn.
+            Ditt konto har blivit registrerat!
+            <br />
+            För att logga in med dina uppgifter klicka på Login i huvudmenyn.
           </p>
         </Alert>
       ) : (
         <div className="form-block">
-          <form>
-            <h1>Register</h1>
+          <form className="register-form">
+            <h1>Registrera konto</h1>
             <section className="form-section">
               <label className="block-label">Email</label>
               <br />
@@ -78,7 +81,7 @@ const RegisterAccount = (props) => {
             </section>
 
             <section className="form-section">
-              <label className="block-label">Username</label>
+              <label className="block-label">Användarnamn</label>
               <br />
               <input
                 classname="username"
@@ -90,7 +93,7 @@ const RegisterAccount = (props) => {
 
             <section className="form-section">
               <label className="block-label" type="password">
-                Password
+                Lösenord
               </label>
               <br />
               <input
@@ -104,7 +107,7 @@ const RegisterAccount = (props) => {
             </section>
 
             <section className="form-section">
-              <label className="block-label">Confirm password</label>
+              <label className="block-label">Upprepa lösenord</label>
               <br />
               <input
                 className="confirmPassword"
@@ -116,9 +119,16 @@ const RegisterAccount = (props) => {
             </section>
             <div className="btn-div">
               <button classname="form-button" onClick={createAccount}>
-                Create account
+                Skapa konto
               </button>
             </div>
+            {mismatch ? (
+              <Alert className="mismatch-alert" color="danger">
+                Lösenorden matchar inte! Försök igen.
+              </Alert>
+            ) : (
+              ""
+            )}
           </form>
         </div>
       )}
