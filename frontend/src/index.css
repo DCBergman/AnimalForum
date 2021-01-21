@@ -81,6 +81,10 @@ code {
 .thread-div:hover {
   cursor: pointer;
 }
+.thread-creation-label{
+  font-size: 15px;
+  font-weight: 500; 
+}
 .thread-bottom-row {
   display: grid;
   width: 100%;

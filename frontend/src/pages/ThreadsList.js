@@ -101,13 +101,15 @@ const ThreadsList = (props) => {
       </div>
       {user ? (
         <Form className="create-thread-form">
+          <div className="thread-creation-label">Skapa en ny tråd:</div>
           <Row>
             <Input
               className="thread-title-input"
               type="text"
+              required={true}
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="Thread title"
+              placeholder="Trådtitel"
             />
           </Row>
           <Row>
@@ -116,7 +118,7 @@ const ThreadsList = (props) => {
                 type="textarea"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                placeholder="Add thread description"
+                placeholder="Lägg till information om trådämnet här"
                 className="post-input"
               />
             </Col>
