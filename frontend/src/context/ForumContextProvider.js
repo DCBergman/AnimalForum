@@ -26,7 +26,6 @@ const ForumContextProvider = (props) => {
       credentials: "include",
     });
     response = await response.json();
-
     setUsers(response);
   };
   const fetchAllModerators = async () => {
@@ -34,9 +33,13 @@ const ForumContextProvider = (props) => {
       method: "GET",
       credentials: "include",
     });
-    response = await response.json();
 
-    return response;
+    try {
+      response = await response.json();
+      return response;
+    } catch {
+      console.log("Error");
+    }
   };
 
   const fetchLoggedInUser = async () => {
@@ -87,20 +90,19 @@ const ForumContextProvider = (props) => {
       method: "GET",
       credentials: "include",
     });
-    try{
+    try {
       response = await response.json();
       console.log(response.filter((r) => r.id));
       setCurrentModForums(response.filter((r) => r.id));
-    }catch{
+    } catch {
       console.log("error");
     }
-
-  }
+  };
   const addModeratorToSubforum = async (userId, subforumId) => {
     let response = await fetch("/api/moderators/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({subforumId:subforumId, userId: userId}),
+      body: JSON.stringify({ subforumId: subforumId, userId: userId }),
     });
     try {
       response = await response.json();
@@ -118,7 +120,6 @@ const ForumContextProvider = (props) => {
     });
     try {
       response = await response.json();
-      console.log(response);
     } catch {
       console.log("Error");
     }
@@ -189,7 +190,7 @@ const ForumContextProvider = (props) => {
     deleteUser,
     changeUserRole,
     changeThreadStatus,
-    removeModeratorfromSubforum
+    removeModeratorfromSubforum,
   };
 
   return (

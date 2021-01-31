@@ -7,16 +7,13 @@ const Post = (props) => {
   const forumContext = useContext(ForumContext);
   const [user, setUser] = useState([]);
   const [date, setDate] = useState([]);
-  
-
 
   useEffect(() => {
-   formatDate();
-   fetchData();
-    
+    formatDate();
+    fetchData();
   }, []);
 
-  const formatDate =() =>{
+  const formatDate = () => {
     let date_ob = new Date(props.post.date);
 
     let date = ("0" + date_ob.getDate()).slice(-2);
@@ -29,43 +26,34 @@ const Post = (props) => {
 
     let minutes = date_ob.getMinutes();
 
+    setDate(year + "-" + month + "-" + date + " " + hours + ":" + minutes);
+  };
 
-    setDate(
-      year +
-        "-" +
-        month +
-        "-" +
-        date +
-        " " +
-        hours +
-        ":" +
-        minutes 
-    );
+  async function deletePost() {
+    await fetch("/api/posts/" + props.post.id, {
+      method: "DELETE",
+    });
+    forumContext.fetchPostsByThreadId(props.post.threadId);
   }
 
-  async function deletePost(){
-      await fetch("/api/posts/" + props.post.id, {
-       method: "DELETE"
-     });
-     forumContext.fetchPostsByThreadId(props.post.threadId);
+  async function fetchData() {
+    console.log(props);
+
+    let response = await fetch("/api/users/" + props.post.userId, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+    try {
+      response = await response.json();
+      setUser(response);
+    } catch {
+      console.log("Bad credentials");
+    }
   }
 
-  async function fetchData(){
-
-     let response = await fetch("/api/users/" + props.post.userId, {
-       method: "GET",
-       headers: { "Content-Type": "application/json" },
-     });
-     try {
-       response = await response.json();
-       setUser(response);
-     } catch {
-       console.log("Bad credentials");
-     }
-
-
-  }
-
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
 
   return (
     <ListGroupItem className={props.post.type}>
@@ -73,9 +61,16 @@ const Post = (props) => {
         <p className="post-creator">{user.username}</p>
         <p className="post-date">{date}</p>
       </div>
+
       <div className="post-bottom-row">
         <p className="post-text">{props.post.content}</p>
-        <Button className="post-delete-btn" onClick={deletePost}>Delete</Button>
+        {props.admin ? (
+          <Button className="post-delete-btn" onClick={deletePost}>
+            Radera
+          </Button>
+        ) : (
+          ""
+        )}
       </div>
     </ListGroupItem>
   );

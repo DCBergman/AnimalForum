@@ -29,16 +29,13 @@ module.exports = {
   },
 
   threads(user, method, req) {
-    if (method === "POST" && user.userRole === "basicUser") {
+    if (method === "POST" && user.userRole) {
       return true;
     }
     if (method === "GET") {
       return true;
     }
-    if (method === "PUT" && user.userRole === "admin") {
-      return true;
-    }
-    if (method === "PUT" && user.userRole === "admin" || "moderator") {
+    if (method === "PUT" && user.userRole === "admin" || user.userRole=== "moderator") {
       return true;
     }
     if (method === "DELETE" && user.userRole === "admin") {
@@ -87,7 +84,7 @@ module.exports = {
     if (method === "POST" && user.userRole === "admin") {
       return true;
     }
-    if (method === "GET") {
+    if (method === "GET" && user.userRole === "admin") {
       return true;
     }
     if (method === "PUT" && user.userRole === "admin") {

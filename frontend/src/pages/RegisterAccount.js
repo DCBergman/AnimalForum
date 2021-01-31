@@ -57,10 +57,8 @@ const RegisterAccount = (props) => {
           isOpen={visible}
           toggle={onDismiss}
         >
-          <h4 className="alert-heading">Grattis!</h4>
+          <h4 className="alert-heading"> Ditt konto har blivit registrerat!</h4>
           <p>
-            Ditt konto har blivit registrerat!
-            <br />
             För att logga in med dina uppgifter klicka på Login i huvudmenyn.
           </p>
         </Alert>

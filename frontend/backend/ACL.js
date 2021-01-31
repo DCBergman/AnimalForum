@@ -12,7 +12,7 @@ module.exports = function (settings) {
     }
 
     let tableName = req.url.replace(restPrefix, "").split("/")[0];
-    console.log("check", tableName);
+    console.log("check", req.method);
     
     if (
       typeof settings[tableName] !== "function" ||
