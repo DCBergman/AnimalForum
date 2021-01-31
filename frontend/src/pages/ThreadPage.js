@@ -205,7 +205,7 @@ const ThreadPage = (props) => {
         </div>
       </ListGroupItem>
       {forumContext.posts.map((p, i) => (
-        <Post post={p} key={i} />
+        <Post post={p} admin={isModAdmin} key={i} />
       ))}
 
       {postEnabled ? (
@@ -228,19 +228,19 @@ const ThreadPage = (props) => {
                         type="checkbox"
                         onChange={() => setWarning(!warning)}
                       />{" "}
-                      Check to create warning post
+                     Klicka för att skapa varningsinlägg
                     </Label>
                   </Row>
                   <Row>
                     <Button className="lock-btn" onClick={() => updateStatus()}>
                       {isOpen ? (
                         <div className="lock-btn-div">
-                          Lock thread
+                          Lås tråd
                           <FaLockOpen className="lock-icon" />
                         </div>
                       ) : (
                         <div className="lock-btn-div">
-                          Unlock thread
+                          Öppna tråd
                           <FaLock className="lock-icon" />
                         </div>
                       )}
@@ -252,7 +252,7 @@ const ThreadPage = (props) => {
           </Row>
           <Col className="btn-col" sm={{ size: 10 }}>
             <Button className="post-button" onClick={createPost}>
-              Submit
+              Skicka
             </Button>
           </Col>
         </div>

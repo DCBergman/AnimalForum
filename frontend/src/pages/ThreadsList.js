@@ -49,7 +49,7 @@ const ThreadsList = (props) => {
 
     try {
       response = await response.json();
-      console.log(response);
+      //console.log(response);
       setDescription("");
       setTitle("");
       //setUser(response)
@@ -123,7 +123,7 @@ const ThreadsList = (props) => {
           </Row>
           <Col className="btn-col" sm={{ size: 10 }}>
             <Button className="post-button" onClick={createThread}>
-              Submit
+             Skicka
             </Button>
           </Col>
         </Form>

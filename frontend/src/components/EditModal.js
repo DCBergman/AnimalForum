@@ -66,7 +66,7 @@ const EditModal =(props)=>{
     const options = [
       <option disabled selected value>
         {" "}
-        -- select an option --{" "}
+        -- välj underforum --{" "}
       </option>,
     ];
     fc.subforums.map((sf, i) => (
@@ -83,7 +83,7 @@ const EditModal =(props)=>{
     const options = [
       <option disabled selected value>
         {" "}
-        -- select an option --{" "}
+        -- välj underforum --{" "}
       </option>,
     ];
     // console.log(fc.currentModForums.filter((f) => f.id));
@@ -101,20 +101,22 @@ const EditModal =(props)=>{
 
   return (
     <Modal isOpen={props.modal} toggle={props.toggle} className={className}>
-      <ModalHeader toggle={props.toggle}>Edit user</ModalHeader>
+      <ModalHeader toggle={props.toggle}>Redigera användare</ModalHeader>
       <ModalBody>
-        {props.user.userRole !== "admin" ?(
-        <FormGroup check>
-          <Label check>
-            <Input
-              type="radio"
-              name="radio1"
-              onChange={() => setEditType("admin")}
-            />
-            Make user admin
-          </Label>
-        </FormGroup>
-        ):("")}
+        {props.user.userRole !== "admin" ? (
+          <FormGroup check>
+            <Label check>
+              <Input
+                type="radio"
+                name="radio1"
+                onChange={() => setEditType("admin")}
+              />
+              Gör användare till admin
+            </Label>
+          </FormGroup>
+        ) : (
+          ""
+        )}
         {props.user.userRole === "moderator" ? (
           <FormGroup check>
             <Label check>
@@ -123,10 +125,10 @@ const EditModal =(props)=>{
                 name="radio1"
                 onChange={() => setEditType("removeModerator")}
               />
-              Remove moderator role from user
+              Ta bort moderatorroll från användare för
             </Label>
             <FormGroup>
-              <Label for="exampleSelect">for subforum:</Label>
+              <Label for="exampleSelect">underforum:</Label>
               <Input
                 type="select"
                 onChange={(e) => setModForum(e.target.value)}
@@ -135,7 +137,9 @@ const EditModal =(props)=>{
               </Input>
             </FormGroup>
           </FormGroup>
-        ) : ("")}
+        ) : (
+          ""
+        )}
         {props.user.userRole !== "admin" ? (
           <FormGroup check>
             <Label check>
@@ -144,10 +148,10 @@ const EditModal =(props)=>{
                 name="radio1"
                 onChange={() => setEditType("moderator")}
               />
-              Make user moderator of
+              Gör användare till moderator för
             </Label>
             <FormGroup>
-              <Label for="exampleSelect">subforum:</Label>
+              <Label for="exampleSelect">underforum:</Label>
               <Input
                 type="select"
                 onChange={(e) => setModForum(e.target.value)}
@@ -156,7 +160,9 @@ const EditModal =(props)=>{
               </Input>
             </FormGroup>
           </FormGroup>
-          ):("")}
+        ) : (
+          ""
+        )}
         <Badge color="danger" className="danger-badge">
           <FormGroup className="delete-radio-btn" check>
             <Label check>
@@ -165,7 +171,7 @@ const EditModal =(props)=>{
                 name="radio1"
                 onChange={() => setEditType("delete")}
               />
-              Delete user
+              Radera användare
             </Label>
           </FormGroup>
         </Badge>
@@ -175,7 +181,7 @@ const EditModal =(props)=>{
             color="secondary"
             onClick={() => editUser()}
           >
-            Confirm
+            Bekräfta
           </Button>
         </FormGroup>
       </ModalBody>

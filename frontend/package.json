@@ -19,6 +19,8 @@
     "react-scripts": "4.0.1",
     "react-strap": "0.0.1",
     "reactstrap": "^8.8.0",
+    "swagger-jsdoc": "^6.0.1",
+    "swagger-ui-express": "^4.1.6",
     "web-vitals": "^0.2.4"
   },
   "scripts": {

@@ -72,7 +72,7 @@ const LoginPage = (props) => {
         </section>
         {alert ? (
           <Alert color="danger">
-            Incorrect email and password combination!
+            Din email eller ditt lösenord är felaktigt.
           </Alert>
         ) : (
           ""

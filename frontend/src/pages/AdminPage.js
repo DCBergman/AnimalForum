@@ -98,7 +98,7 @@ const AdminPage = (props) => {
         </Accordion>
         :
         <Alert className="admin-warning" color="warning">
-          Stopp och belägg! Denna sidan är till för administratörer!
+         403 Forbidden
         </Alert>        }
       </div>
     );

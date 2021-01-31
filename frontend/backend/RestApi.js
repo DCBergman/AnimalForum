@@ -2,7 +2,7 @@ const Encrypt = require("./Encrypt");
 const sqlite3 = require("better-sqlite3");
 
 module.exports = class RestApi {
-  constructor(expressApp, urlPrefix = "/api/", pathToDb ) {
+  constructor(expressApp, urlPrefix = "/api/", pathToDb) {
     this.app = expressApp;
     this.db = sqlite3(pathToDb);
     this.prefix = urlPrefix;
@@ -40,10 +40,24 @@ module.exports = class RestApi {
       let statement = this.db.prepare("SELECT * FROM " + table);
 
       let result = statement.all();
-      result.forEach((x) => delete x.password);
+      result.forEach((x) => delete x.password && delete x.email);
       res.json(result);
     });
   }
+
+ 
+  /**
+   * @swagger
+   * /threads/subforumId:
+   *  get:
+   *   description: Get threads by subforum id
+   *   responses:
+   *     200:
+   *      description: Succsess
+   *
+   * 
+   *
+   *  */
 
   createGetBySubforumIdRoute() {
     this.app.get(this.prefix + "subforums/threads/:id", (req, res) => {
@@ -67,15 +81,17 @@ module.exports = class RestApi {
     });
   }
 
-  createDeleteModFromSubforumRoute(){
-    this.app.delete(this.prefix + "moderators/:subforumId/:userId", (req, res) => {
-      let statement = this.db.prepare(`
+  createDeleteModFromSubforumRoute() {
+    this.app.delete(
+      this.prefix + "moderators/:subforumId/:userId",
+      (req, res) => {
+        let statement = this.db.prepare(`
       DELETE FROM moderators
       WHERE userId = $userId
       AND subforumId = $subforumId`);
-     res.json(statement.run(req.params));
-    });
-      
+        res.json(statement.run(req.params));
+      }
+    );
   }
 
   createGetSubforumByModeratorIdRoute() {
@@ -100,6 +116,7 @@ module.exports = class RestApi {
       let result = statement.get(req.params) || null;
       if (result) {
         delete result.password;
+        delete result.email;
       }
       res.json(result);
     });
